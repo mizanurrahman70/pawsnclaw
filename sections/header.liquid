@@ -1,3 +1,48 @@
 {{ 'section-header.css' | asset_url | stylesheet_tag }}
-<header class="site-header"><div class="site-header__inner"><a class="site-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | default: 'Paws & Claw' }} home">{% if section.settings.logo != blank %}{{ section.settings.logo | image_url: width: 300 | image_tag: loading: 'eager', alt: shop.name }}{% else %}<span class="site-header__mark" aria-hidden="true">✦</span><span>{{ section.settings.brand_name | default: shop.name | default: 'PAWS&CLAW' }}</span>{% endif %}</a><nav class="site-header__nav" aria-label="Main navigation">{% if section.settings.menu != blank and section.settings.menu.links.size > 0 %}{% for link in section.settings.menu.links %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>{% endfor %}{% else %}<a href="{{ routes.root_url }}">Home</a><a href="{{ routes.search_url }}?q=dog&amp;type=product">Shop Dogs</a><a href="{{ routes.search_url }}?q=cat&amp;type=product">Shop Cats</a><a href="{{ routes.all_products_collection_url }}?sort_by=best-selling">Best Sellers</a><a class="site-header__sale" href="{{ routes.all_products_collection_url }}?sort_by=price-ascending">Sale Items</a><a href="{{ routes.search_url }}?q=pet+care&amp;type=article">Pet Guides</a>{% endif %}</nav><div class="site-header__tools"><form class="site-header__search" action="{{ routes.search_url }}" method="get" role="search"><input type="hidden" name="type" value="product"><label class="visually-hidden" for="header-search-{{ section.id }}">Search products</label><span aria-hidden="true">⌕</span><input id="header-search-{{ section.id }}" name="q" type="search" placeholder="Search pet favorites..."></form><a class="site-header__icon" href="{{ routes.account_url }}" aria-label="Your account">♡</a><a class="site-header__cart" href="{{ routes.cart_url }}" aria-label="Cart, {{ cart.item_count }} items">{{ 'icon-cart.svg' | inline_asset_content }}<b>{{ cart.item_count }}</b></a></div></div></header>
-{% schema %}{"name":"Header","settings":[{"type":"image_picker","id":"logo","label":"Logo image"},{"type":"text","id":"brand_name","label":"Fallback brand name","default":"PAWS&CLAW"},{"type":"link_list","id":"menu","label":"Navigation menu","info":"Leave empty to use the working Paws & Claw fallback navigation."}]}{% endschema %}
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | default: 'Paws & Claw' }} home">
+      {% if section.settings.logo != blank %}
+        {{ section.settings.logo | image_url: width: 300 | image_tag: loading: 'eager', alt: shop.name }}
+      {% else %}
+        <span class="site-header__mark" aria-hidden="true">✦</span>
+        <span>{{ section.settings.brand_name | default: shop.name | default: 'PAWS&CLAW' }}</span>
+      {% endif %}
+    </a>
+    <nav class="site-header__nav" aria-label="Main navigation">
+      {% if section.settings.menu != blank and section.settings.menu.links.size > 0 %}
+        {% for link in section.settings.menu.links %}
+          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+        {% endfor %}
+      {% else %}
+        <a href="{{ routes.root_url }}">Home</a>
+        <a href="{{ routes.search_url }}?q=dog&amp;type=product">Shop Dogs</a>
+        <a href="{{ routes.search_url }}?q=cat&amp;type=product">Shop Cats</a>
+        <a href="{{ routes.all_products_collection_url }}?sort_by=best-selling">Best Sellers</a>
+        <a class="site-header__sale" href="{{ routes.all_products_collection_url }}?sort_by=price-ascending">Sale Items</a>
+        <a href="{{ routes.search_url }}?q=pet+care&amp;type=article">Pet Guides</a>
+      {% endif %}
+    </nav>
+    <div class="site-header__tools">
+      <form class="site-header__search" action="{{ routes.search_url }}" method="get" role="search">
+        <input type="hidden" name="type" value="product">
+        <label class="visually-hidden" for="header-search-{{ section.id }}">Search products</label>
+        <span aria-hidden="true">⌕</span>
+        <input id="header-search-{{ section.id }}" name="q" type="search" placeholder="Search pet favorites...">
+      </form>
+      <a class="site-header__icon" href="{{ routes.account_url }}" aria-label="Your account">♡</a>
+      <a class="site-header__cart" href="{{ routes.cart_url }}" aria-label="Cart, {{ cart.item_count }} items">{{ 'icon-cart.svg' | inline_asset_content }}<b>{{ cart.item_count }}</b></a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo image" },
+    { "type": "text", "id": "brand_name", "label": "Fallback brand name", "default": "PAWS&CLAW" },
+    { "type": "link_list", "id": "menu", "label": "Navigation menu", "info": "Leave empty to use the working Paws & Claw fallback navigation." }
+  ]
+}
+{% endschema %}

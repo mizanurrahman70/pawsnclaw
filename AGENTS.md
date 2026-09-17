@@ -16,6 +16,7 @@ theme editor.
   `background_color` (color), rendered as an inline `style` attribute
 - Every block needs `name` + `settings`; every section needs a `presets` array that lists its blocks
 - Register every block instance in `templates/*.json` with `"blocks"` and `"block_order"` or the section renders empty
+-code will be multile 
 
 Reference implementation: `sections/pet-hero.liquid` (content / image / checks blocks)
 and `sections/pet-benefits.liquid` (benefit blocks).

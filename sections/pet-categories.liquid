@@ -1,3 +1,86 @@
 {{ 'section-pet-categories.css' | asset_url | stylesheet_tag }}
-<section class="pet-section pet-categories" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}"><div class="pet-container">{% for block in section.blocks %}{% if block.type == 'intro' %}<div class="pet-section__intro" {{ block.shopify_attributes }}>{% if block.settings.eyebrow != blank %}<p class="pet-eyebrow">{{ block.settings.eyebrow }}</p>{% endif %}{% if block.settings.heading != blank %}<h2 class="pet-heading">{{ block.settings.heading }}</h2>{% endif %}{% if block.settings.copy != blank %}<p class="pet-copy">{{ block.settings.copy }}</p>{% endif %}</div>{% endif %}{% endfor %}<div class="pet-category-grid">{% for block in section.blocks %}{% if block.type == 'category' %}<a class="pet-category" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: block.settings.title }}{% else %}<div class="pet-category__empty">🐾</div>{% endif %}<div><h3>{{ block.settings.title }}</h3><p>{{ block.settings.subtitle }}</p></div></a>{% endif %}{% endfor %}</div></div></section>
-{% schema %}{"name":"Pet categories","settings":[{"type":"header","content":"Design controls"},{"type":"range","id":"padding_top","label":"Padding top","min":0,"max":120,"step":4,"unit":"px","default":76},{"type":"range","id":"padding_bottom","label":"Padding bottom","min":0,"max":120,"step":4,"unit":"px","default":76},{"type":"range","id":"margin_top","label":"Margin top","min":0,"max":120,"step":4,"unit":"px","default":0},{"type":"range","id":"margin_bottom","label":"Margin bottom","min":0,"max":120,"step":4,"unit":"px","default":0},{"type":"color","id":"background_color","label":"Background color"}],"blocks":[{"type":"intro","name":"Intro","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Curated collections"},{"type":"text","id":"heading","label":"Heading","default":"Shop by category"},{"type":"richtext","id":"copy","label":"Text","default":"<p>Good things, chosen for the way your pet actually lives.</p>"}]},{"type":"category","name":"Category card","settings":[{"type":"image_picker","id":"image","label":"Image"},{"type":"text","id":"title","label":"Title","default":"Dog Food & Treats"},{"type":"text","id":"subtitle","label":"Subtitle","default":"120+ products"},{"type":"url","id":"link","label":"Link"}]}],"max_blocks":5,"presets":[{"name":"Pet categories","blocks":[{"type":"intro"},{"type":"category","settings":{"title":"Dog Food & Treats","subtitle":"120+ products"}},{"type":"category","settings":{"title":"Indestructible Dog Toys","subtitle":"85 products"}},{"type":"category","settings":{"title":"Premium Cat Food","subtitle":"90+ products"}},{"type":"category","settings":{"title":"Interactive Cat Toys","subtitle":"60 products"}}]}]}{% endschema %}
+<section class="pet-section pet-categories" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}">
+  <div class="pet-container">
+    {% for block in section.blocks %}
+      {% if block.type == 'intro' %}
+        <div class="pet-section__intro" {{ block.shopify_attributes }}>
+          {% if block.settings.eyebrow != blank %}<p class="pet-eyebrow">{{ block.settings.eyebrow }}</p>{% endif %}
+          {% if block.settings.heading != blank %}<h2 class="pet-heading">{{ block.settings.heading }}</h2>{% endif %}
+          {% if block.settings.copy != blank %}<p class="pet-copy">{{ block.settings.copy }}</p>{% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <div class="pet-category-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'category' %}
+          <a class="pet-category" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: block.settings.title }}
+            {% else %}
+              {% case block.settings.title %}
+                {% when 'Dog Food & Treats' %}<img src="{{ 'catagory-Dog-Food-Treats.jpg' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% when 'Indestructible Dog Toys' %}<img src="{{ 'catagory-Indestructible-Dog-Toys.jpg' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% when 'Premium Cat Food' %}<img src="{{ 'catagory-Premium-Cat-Food.jpg' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% when 'Interactive Cat Toys' %}<img src="{{ 'catagory-Interactive-Cat-Toys.jpg' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% else %}<div class="pet-category__empty">🐾</div>
+              {% endcase %}
+            {% endif %}
+            <div>
+              <h3>{{ block.settings.title }}</h3>
+              <p>{{ block.settings.subtitle }}</p>
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pet categories",
+  "settings": [
+    { "type": "header", "content": "Design controls" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
+    { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "color", "id": "background_color", "label": "Background color" }
+  ],
+  "blocks": [
+    {
+      "type": "intro",
+      "name": "Intro",
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Curated collections" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by category" },
+        { "type": "richtext", "id": "copy", "label": "Text", "default": "<p>Good things, chosen for the way your pet actually lives.</p>" }
+      ]
+    },
+    {
+      "type": "category",
+      "name": "Category card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Dog Food & Treats" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "120+ products" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Pet categories",
+      "blocks": [
+        { "type": "intro" },
+        { "type": "category", "settings": { "title": "Dog Food & Treats", "subtitle": "120+ products" } },
+        { "type": "category", "settings": { "title": "Indestructible Dog Toys", "subtitle": "85 products" } },
+        { "type": "category", "settings": { "title": "Premium Cat Food", "subtitle": "90+ products" } },
+        { "type": "category", "settings": { "title": "Interactive Cat Toys", "subtitle": "60 products" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
