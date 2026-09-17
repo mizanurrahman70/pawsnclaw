@@ -7,10 +7,7 @@
       {% if media_blocks.size > 0 and media_blocks.first.settings.image != blank %}
         {{ media_blocks.first.settings.image | image_url: width: 1100 | image_tag: loading: 'lazy', widths: '500, 750, 1100', alt: media_blocks.first.settings.alt_text }}
       {% else %}
-        <div class="pet-feeder__placeholder" aria-hidden="true">
-          <span>🐾</span>
-          <p>Smart feeder image</p>
-        </div>
+        <img src="{{ 'promo-image-container.png' | asset_url }}" alt="Smart pet feeders on promotion" loading="lazy">
       {% endif %}
     </div>
 

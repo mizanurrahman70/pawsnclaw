@@ -33,7 +33,7 @@
       {% for block in section.blocks %}
         {% if block.type == 'image' %}
           <div class="pet-hero__media" {{ block.shopify_attributes }}>
-            {% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1100 | image_tag: loading: 'eager', widths: '500, 700, 1100', alt: block.settings.alt }}{% else %}<div class="pet-hero__placeholder"><span>🐕</span><span>🐈</span></div>{% endif %}
+            {% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1100 | image_tag: loading: 'eager', widths: '500, 700, 1100', alt: block.settings.alt }}{% else %}<img src="{{ 'hero-image.png' | asset_url }}" alt="{{ block.settings.alt | default: 'Happy pet with Paws & Claw products' }}" loading="eager">{% endif %}
           </div>
         {% endif %}
       {% endfor %}

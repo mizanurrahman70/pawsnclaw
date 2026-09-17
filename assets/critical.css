@@ -106,9 +106,10 @@ body {
   width: 100%;
 }
 
-/* Child elements, by default, are constrained to the central column of the grid. */
+/* Child elements, by default, span the entire viewport. Content inside
+   sections is still centered via their own `pet-container` wrappers. */
 .shopify-section > * {
-  grid-column: 2;
+  grid-column: 1 / -1;
 }
 
 /* Child elements that use the full-width utility class span the entire viewport. */
