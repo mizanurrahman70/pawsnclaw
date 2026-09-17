@@ -65,8 +65,42 @@
       {
         "type": "color",
         "id": "foreground_color",
-        "default": "#333333",
+        "default": "#17233A",
         "label": "t:labels.foreground"
+      },
+      {
+        "type": "header",
+        "content": "Paws & Claw palette"
+      },
+      {
+        "type": "color",
+        "id": "primary_color",
+        "default": "#087BE8",
+        "label": "Primary blue"
+      },
+      {
+        "type": "color",
+        "id": "primary_dark_color",
+        "default": "#0565C7",
+        "label": "Deep blue"
+      },
+      {
+        "type": "color",
+        "id": "surface_color",
+        "default": "#FFFFFF",
+        "label": "Card surface"
+      },
+      {
+        "type": "color",
+        "id": "mist_color",
+        "default": "#EDF7FF",
+        "label": "Soft blue background"
+      },
+      {
+        "type": "color",
+        "id": "success_color",
+        "default": "#22A67A",
+        "label": "Success green"
       },
       {
         "type": "range",

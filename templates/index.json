@@ -9,12 +9,14 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
-    }
+    "hero": { "type": "pet-hero", "blocks": { "content": { "type": "content" }, "image": { "type": "image" }, "checks": { "type": "checks" } }, "block_order": ["content", "image", "checks"], "settings": {} },
+    "benefits": { "type": "pet-benefits", "blocks": { "shipping": { "type": "benefit", "settings": { "icon": "◷", "heading": "Same-day shipping", "text": "Order before 2 PM for quick fulfillment" } }, "approved": { "type": "benefit", "settings": { "icon": "♡", "heading": "Vet-approved", "text": "Products selected for happy, healthy pets" } }, "save": { "type": "benefit", "settings": { "icon": "✦", "heading": "Subscribe & save", "text": "Save 15% on your regular essentials" } } }, "block_order": ["shipping", "approved", "save"], "settings": {} },
+    "categories": { "type": "pet-categories", "settings": {} },
+    "featured": { "type": "pet-featured-products", "settings": {} },
+    "reviews": { "type": "pet-testimonials", "settings": {} },
+    "journal": { "type": "pet-journal", "settings": {} }
   },
   "order": [
-    "main"
+    "hero", "benefits", "categories", "featured", "reviews", "journal"
   ]
 }
