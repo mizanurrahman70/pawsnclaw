@@ -13,10 +13,14 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {
-        "menu": "",
-        "show_payment_icons": true
-      }
+      "blocks": {
+        "brand": { "type": "brand", "settings": {} },
+        "dogs": { "type": "menu_column", "settings": { "heading": "Shop Dogs" } },
+        "cats": { "type": "menu_column", "settings": { "heading": "Shop Cats" } },
+        "support": { "type": "menu_column", "settings": { "heading": "Support & Care" } }
+      },
+      "block_order": ["brand", "dogs", "cats", "support"],
+      "settings": {}
     }
   },
   "order": [

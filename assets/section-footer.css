@@ -1,1 +1,102 @@
-footer { align-items:center; background:var(--color-mist); display:flex; justify-content:space-between; margin-top:0; padding:36px max(20px, calc((100% - 1180px) / 2)); } footer a { color:var(--color-foreground); text-decoration:none; } footer .footer__links,footer .footer__payment { display:flex; gap:1rem; } footer .footer__payment svg { height:24px; width:36px; } @media(max-width:700px){footer{align-items:flex-start;flex-direction:column;gap:20px}}
+.pet-footer {
+  background: #f2f8fd;
+  padding: 54px 0 25px;
+}
+
+.pet-footer__grid {
+  display: grid;
+  gap: 42px;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+}
+
+.pet-footer__brand > a {
+  align-items: center;
+  display: flex;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -.06em;
+  margin-bottom: 16px;
+  text-decoration: none;
+}
+
+.pet-footer__brand > a span {
+  align-items: center;
+  background: var(--color-primary);
+  border-radius: 7px;
+  color: white;
+  display: flex;
+  height: 27px;
+  justify-content: center;
+  margin-right: 7px;
+  width: 27px;
+}
+
+.pet-footer__brand > div,
+.pet-footer__column li {
+  color: #667a91;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.pet-footer__column h2 {
+  font-size: 13px;
+  margin: 2px 0 13px;
+}
+
+.pet-footer__column ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pet-footer__column a {
+  text-decoration: none;
+}
+
+.pet-footer__column a:hover {
+  color: var(--color-primary);
+}
+
+.pet-footer__social {
+  display: flex;
+  gap: 9px;
+  margin: 17px 0 0;
+}
+
+.pet-footer__social a {
+  align-items: center;
+  background: white;
+  border: 1px solid #dbe7f0;
+  border-radius: 50%;
+  display: flex;
+  font-size: 11px;
+  height: 25px;
+  justify-content: center;
+  text-decoration: none;
+  width: 25px;
+}
+
+.pet-footer__bottom {
+  border-top: 1px solid #dce8f1;
+  color: #77889c;
+  display: flex;
+  font-size: 10px;
+  justify-content: space-between;
+  margin-top: 42px;
+  padding-top: 22px;
+}
+
+.pet-footer__bottom a {
+  color: var(--color-foreground);
+  text-decoration: none;
+}
+
+@media (max-width: 760px) {
+  .pet-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pet-footer__brand {
+    grid-column: 1 / -1;
+  }
+}

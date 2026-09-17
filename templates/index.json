@@ -15,9 +15,10 @@
     "featured": { "type": "pet-featured-products", "blocks": { "intro": { "type": "intro" }, "button": { "type": "button" } }, "block_order": ["intro", "button"], "settings": {} },
     "smart_feeder": { "type": "pet-smart-feeder", "blocks": { "content": { "type": "content", "settings": {} }, "point_one": { "type": "selling_point", "settings": {} }, "point_two": { "type": "selling_point", "settings": { "text": "Automatic personalized voice recordings for mealtimes" } }, "point_three": { "type": "selling_point", "settings": { "text": "Anti-jam food dispensing optimized for kibble sizes" } }, "offer": { "type": "offer", "settings": {} } }, "block_order": ["content", "point_one", "point_two", "point_three", "offer"], "settings": {} },
     "reviews": { "type": "pet-testimonials", "blocks": { "intro": { "type": "intro" }, "review_one": { "type": "review" }, "review_two": { "type": "review", "settings": { "name": "Sophia L. & Cleo", "pet": "Maine Coon Cat" } }, "review_three": { "type": "review", "settings": { "name": "Jessica P. & Buster", "pet": "French Bulldog" } } }, "block_order": ["intro", "review_one", "review_two", "review_three"], "settings": {} },
-    "journal": { "type": "pet-journal", "blocks": { "intro": { "type": "intro" }, "story_one": { "type": "article" }, "story_two": { "type": "article", "settings": { "category": "Dog training", "title": "Best indestructible toys to cure puppy boredom" } }, "story_three": { "type": "article", "settings": { "category": "Pet nutrition", "title": "The ultimate guide to reading pet food labels" } } }, "block_order": ["intro", "story_one", "story_two", "story_three"], "settings": {} }
+    "journal": { "type": "pet-journal", "blocks": { "intro": { "type": "intro" }, "story_one": { "type": "article" }, "story_two": { "type": "article", "settings": { "category": "Dog training", "title": "Best indestructible toys to cure puppy boredom" } }, "story_three": { "type": "article", "settings": { "category": "Pet nutrition", "title": "The ultimate guide to reading pet food labels" } } }, "block_order": ["intro", "story_one", "story_two", "story_three"], "settings": {} },
+    "newsletter": { "type": "pet-newsletter", "blocks": { "intro": { "type": "intro", "settings": {} }, "form": { "type": "signup_form", "settings": {} } }, "block_order": ["intro", "form"], "settings": {} }
   },
   "order": [
-    "hero", "benefits", "categories", "featured", "smart_feeder", "reviews", "journal"
+    "hero", "benefits", "categories", "featured", "smart_feeder", "reviews", "journal", "newsletter"
   ]
 }
