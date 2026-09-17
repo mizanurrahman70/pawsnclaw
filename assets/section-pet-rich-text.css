@@ -1,0 +1,44 @@
+.pet-rich-text__inner {
+  margin: 0 auto;
+  max-width: 760px;
+}
+
+.pet-rich-text__inner--narrow {
+  max-width: 560px;
+}
+
+.pet-rich-text__inner--wide {
+  max-width: 100%;
+}
+
+.pet-rich-text__inner--center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.pet-rich-text__heading {
+  margin-top: 8px;
+}
+
+.pet-rich-text__body {
+  color: #66758c;
+  font-size: 16px;
+  margin-top: 16px;
+}
+
+.pet-rich-text__body p {
+  font-size: 16px;
+}
+
+.pet-rich-text__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.pet-rich-text__inner--center .pet-rich-text__actions {
+  justify-content: center;
+}

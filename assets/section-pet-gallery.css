@@ -1,0 +1,51 @@
+.pet-gallery__grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(var(--pet-gallery-cols), 1fr);
+}
+
+.pet-gallery__item {
+  margin: 0;
+  overflow: hidden;
+}
+
+.pet-gallery__item a {
+  display: block;
+  line-height: 0;
+}
+
+.pet-gallery__item img {
+  aspect-ratio: 1;
+  border-radius: 18px;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  width: 100%;
+}
+
+.pet-gallery__item a:hover img {
+  box-shadow: 0 14px 34px rgba(18, 59, 90, 0.16);
+  transform: scale(1.03);
+}
+
+.pet-gallery__empty {
+  align-items: center;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #d8edf4, #b3d8e8);
+  border-radius: 18px;
+  display: flex;
+  font-size: 56px;
+  justify-content: center;
+}
+
+.pet-gallery__item figcaption {
+  color: #66758c;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+@media (max-width: 700px) {
+  .pet-gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

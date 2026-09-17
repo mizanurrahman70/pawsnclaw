@@ -1,24 +1,249 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "hero": { "type": "pet-hero", "blocks": { "content": { "type": "content" }, "image": { "type": "image" }, "checks": { "type": "checks" } }, "block_order": ["content", "image", "checks"], "settings": {} },
-    "benefits": { "type": "pet-benefits", "blocks": { "shipping": { "type": "benefit", "settings": { "icon": "◷", "heading": "Same-day shipping", "text": "Order before 2 PM for quick fulfillment" } }, "approved": { "type": "benefit", "settings": { "icon": "♡", "heading": "Vet-approved", "text": "Products selected for happy, healthy pets" } }, "save": { "type": "benefit", "settings": { "icon": "✦", "heading": "Subscribe & save", "text": "Save 15% on your regular essentials" } } }, "block_order": ["shipping", "approved", "save"], "settings": {} },
-    "categories": { "type": "pet-categories", "blocks": { "intro": { "type": "intro" }, "dog_food": { "type": "category", "settings": { "title": "Dog Food & Treats", "subtitle": "120+ products" } }, "dog_toys": { "type": "category", "settings": { "title": "Indestructible Dog Toys", "subtitle": "85 products" } }, "cat_food": { "type": "category", "settings": { "title": "Premium Cat Food", "subtitle": "90+ products" } }, "cat_toys": { "type": "category", "settings": { "title": "Interactive Cat Toys", "subtitle": "60 products" } } }, "block_order": ["intro", "dog_food", "dog_toys", "cat_food", "cat_toys"], "settings": {} },
-    "featured": { "type": "pet-featured-products", "blocks": { "intro": { "type": "intro" }, "button": { "type": "button" } }, "block_order": ["intro", "button"], "settings": {} },
-    "smart_feeder": { "type": "pet-smart-feeder", "blocks": { "content": { "type": "content", "settings": {} }, "point_one": { "type": "selling_point", "settings": {} }, "point_two": { "type": "selling_point", "settings": { "text": "Automatic personalized voice recordings for mealtimes" } }, "point_three": { "type": "selling_point", "settings": { "text": "Anti-jam food dispensing optimized for kibble sizes" } }, "offer": { "type": "offer", "settings": {} } }, "block_order": ["content", "point_one", "point_two", "point_three", "offer"], "settings": {} },
-    "reviews": { "type": "pet-testimonials", "blocks": { "intro": { "type": "intro" }, "review_one": { "type": "review" }, "review_two": { "type": "review", "settings": { "name": "Sophia L. & Cleo", "pet": "Maine Coon Cat" } }, "review_three": { "type": "review", "settings": { "name": "Jessica P. & Buster", "pet": "French Bulldog" } } }, "block_order": ["intro", "review_one", "review_two", "review_three"], "settings": {} },
-    "journal": { "type": "pet-journal", "blocks": { "intro": { "type": "intro" }, "story_one": { "type": "article" }, "story_two": { "type": "article", "settings": { "category": "Dog training", "title": "Best indestructible toys to cure puppy boredom" } }, "story_three": { "type": "article", "settings": { "category": "Pet nutrition", "title": "The ultimate guide to reading pet food labels" } } }, "block_order": ["intro", "story_one", "story_two", "story_three"], "settings": {} },
-    "newsletter": { "type": "pet-newsletter", "blocks": { "intro": { "type": "intro", "settings": {} }, "form": { "type": "signup_form", "settings": {} } }, "block_order": ["intro", "form"], "settings": {} }
+    "hero": {
+      "type": "pet-hero",
+      "blocks": {
+        "content": {
+          "type": "content"
+        },
+        "image": {
+          "type": "image"
+        },
+        "checks": {
+          "type": "checks"
+        }
+      },
+      "block_order": [
+        "content",
+        "image",
+        "checks"
+      ],
+      "settings": {}
+    },
+    "benefits": {
+      "type": "pet-benefits",
+      "blocks": {
+        "shipping": {
+          "type": "benefit",
+          "settings": {
+            "icon": "◷",
+            "heading": "Same-day shipping",
+            "text": "Order before 2 PM for quick fulfillment"
+          }
+        },
+        "approved": {
+          "type": "benefit",
+          "settings": {
+            "icon": "♡",
+            "heading": "Vet-approved",
+            "text": "Products selected for happy, healthy pets"
+          }
+        },
+        "save": {
+          "type": "benefit",
+          "settings": {
+            "icon": "✦",
+            "heading": "Subscribe & save",
+            "text": "Save 15% on your regular essentials"
+          }
+        }
+      },
+      "block_order": [
+        "shipping",
+        "approved",
+        "save"
+      ],
+      "settings": {}
+    },
+    "categories": {
+      "type": "pet-categories",
+      "blocks": {
+        "intro": {
+          "type": "intro"
+        },
+        "dog_food": {
+          "type": "category",
+          "settings": {
+            "title": "Dog Food & Treats",
+            "subtitle": "120+ products"
+          }
+        },
+        "dog_toys": {
+          "type": "category",
+          "settings": {
+            "title": "Indestructible Dog Toys",
+            "subtitle": "85 products"
+          }
+        },
+        "cat_food": {
+          "type": "category",
+          "settings": {
+            "title": "Premium Cat Food",
+            "subtitle": "90+ products"
+          }
+        },
+        "cat_toys": {
+          "type": "category",
+          "settings": {
+            "title": "Interactive Cat Toys",
+            "subtitle": "60 products"
+          }
+        }
+      },
+      "block_order": [
+        "intro",
+        "dog_food",
+        "dog_toys",
+        "cat_food",
+        "cat_toys"
+      ],
+      "settings": {}
+    },
+    "featured": {
+      "type": "pet-featured-products",
+      "blocks": {
+        "intro": {
+          "type": "intro"
+        },
+        "button": {
+          "type": "button"
+        }
+      },
+      "block_order": [
+        "intro",
+        "button"
+      ],
+      "settings": {}
+    },
+    "smart_feeder": {
+      "type": "pet-smart-feeder",
+      "blocks": {
+        "content": {
+          "type": "content",
+          "settings": {}
+        },
+        "point_one": {
+          "type": "selling_point",
+          "settings": {}
+        },
+        "point_two": {
+          "type": "selling_point",
+          "settings": {
+            "text": "Automatic personalized voice recordings for mealtimes"
+          }
+        },
+        "point_three": {
+          "type": "selling_point",
+          "settings": {
+            "text": "Anti-jam food dispensing optimized for kibble sizes"
+          }
+        },
+        "offer": {
+          "type": "offer",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "content",
+        "point_one",
+        "point_two",
+        "point_three",
+        "offer"
+      ],
+      "settings": {}
+    },
+    "reviews": {
+      "type": "pet-testimonials",
+      "blocks": {
+        "intro": {
+          "type": "intro"
+        },
+        "review_one": {
+          "type": "review"
+        },
+        "review_two": {
+          "type": "review",
+          "settings": {
+            "name": "Sophia L. & Cleo",
+            "pet": "Maine Coon Cat"
+          }
+        },
+        "review_three": {
+          "type": "review",
+          "settings": {
+            "name": "Jessica P. & Buster",
+            "pet": "French Bulldog"
+          }
+        }
+      },
+      "block_order": [
+        "intro",
+        "review_one",
+        "review_two",
+        "review_three"
+      ],
+      "settings": {}
+    },
+    "journal": {
+      "type": "pet-journal",
+      "blocks": {
+        "intro": {
+          "type": "intro"
+        },
+        "story_one": {
+          "type": "article"
+        },
+        "story_two": {
+          "type": "article",
+          "settings": {
+            "category": "Dog training",
+            "title": "Best indestructible toys to cure puppy boredom"
+          }
+        },
+        "story_three": {
+          "type": "article",
+          "settings": {
+            "category": "Pet nutrition",
+            "title": "The ultimate guide to reading pet food labels"
+          }
+        }
+      },
+      "block_order": [
+        "intro",
+        "story_one",
+        "story_two",
+        "story_three"
+      ],
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "pet-newsletter",
+      "blocks": {
+        "intro": {
+          "type": "intro",
+          "settings": {}
+        },
+        "form": {
+          "type": "signup_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "intro",
+        "form"
+      ],
+      "settings": {}
+    }
+  
   },
   "order": [
-    "hero", "benefits", "categories", "featured", "smart_feeder", "reviews", "journal", "newsletter"
+    "hero",
+    "benefits",
+    "categories",
+    "featured",
+    "smart_feeder",
+    "reviews",
+    "journal",
+    "newsletter"
   ]
 }

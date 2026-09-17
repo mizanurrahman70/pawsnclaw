@@ -1,0 +1,84 @@
+{{ 'section-pet-gallery.css' | asset_url | stylesheet_tag }}
+<section class="pet-gallery" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}">
+  <div class="pet-container">
+    {% for block in section.blocks %}
+      {% if block.type == 'intro' %}
+        <div class="pet-section__intro" {{ block.shopify_attributes }}>
+          {% if block.settings.eyebrow != blank %}<p class="pet-eyebrow">{{ block.settings.eyebrow }}</p>{% endif %}
+          {% if block.settings.heading != blank %}<h2 class="pet-heading">{{ block.settings.heading }}</h2>{% endif %}
+          {% if block.settings.copy != blank %}<p class="pet-copy">{{ block.settings.copy }}</p>{% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <div class="pet-gallery__grid" style="--pet-gallery-cols: {{ section.settings.columns }};">
+      {% for block in section.blocks %}
+        {% if block.type == 'image' %}
+          <figure class="pet-gallery__item" {{ block.shopify_attributes }}>
+            {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400, 600, 800', alt: block.settings.alt }}
+            {% else %}
+              <div class="pet-gallery__empty" aria-hidden="true">🐾</div>
+            {% endif %}
+            {% if block.settings.link != blank %}</a>{% endif %}
+            {% if block.settings.caption != blank %}<figcaption>{{ block.settings.caption }}</figcaption>{% endif %}
+          </figure>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image gallery",
+  "settings": [
+    { "type": "header", "content": "Layout" },
+    { "type": "select", "id": "columns", "label": "Images per row", "default": "3", "options": [{ "value": "2", "label": "2" }, { "value": "3", "label": "3" }, { "value": "4", "label": "4" }] },
+    { "type": "header", "content": "Design controls" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
+    { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "color", "id": "background_color", "label": "Background color" }
+  ],
+  "blocks": [
+    {
+      "type": "intro",
+      "name": "Intro",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Gallery" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Life with Paws & Claw" },
+        { "type": "richtext", "id": "copy", "label": "Text", "default": "<p>Real moments from happy pets and their parents.</p>" }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Image alt text" },
+        { "type": "text", "id": "caption", "label": "Caption" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 9,
+  "presets": [
+    {
+      "name": "Image gallery",
+      "blocks": [
+        { "type": "intro" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

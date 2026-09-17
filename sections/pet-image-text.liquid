@@ -1,0 +1,82 @@
+{{ 'section-pet-image-text.css' | asset_url | stylesheet_tag }}
+{% assign image_blocks = section.blocks | where: 'type', 'image' %}
+{% assign media = image_blocks.first %}
+{% assign content_blocks = section.blocks | where: 'type', 'content' %}
+{% assign content = content_blocks.first %}
+
+<section class="pet-image-text pet-image-text--{{ section.settings.layout }}" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}">
+  <div class="pet-container pet-image-text__grid">
+    <div class="pet-image-text__media"{% if media != blank %} {{ media.shopify_attributes }}{% endif %}>
+      {% if media != blank and media.settings.image != blank %}
+        {{ media.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '600, 900, 1200', alt: media.settings.alt }}
+      {% else %}
+        <div class="pet-image-text__placeholder" aria-hidden="true"><span>🐾</span></div>
+      {% endif %}
+    </div>
+
+    <div class="pet-image-text__content"{% if content != blank %} {{ content.shopify_attributes }}{% endif %}>
+      {% if content != blank %}
+        {% if content.settings.eyebrow != blank %}<p class="pet-eyebrow">{{ content.settings.eyebrow }}</p>{% endif %}
+        {% if content.settings.heading != blank %}<h2 class="pet-heading">{{ content.settings.heading }}</h2>{% endif %}
+        {% if content.settings.text != blank %}<div class="pet-copy pet-image-text__body">{{ content.settings.text }}</div>{% endif %}
+        {% if content.settings.primary_label != blank or content.settings.secondary_label != blank %}
+          <div class="pet-image-text__actions">
+            {% if content.settings.primary_label != blank %}<a class="pet-button" href="{{ content.settings.primary_link }}">{{ content.settings.primary_label }} <span aria-hidden="true">→</span></a>{% endif %}
+            {% if content.settings.secondary_label != blank %}<a class="pet-button pet-button--outline" href="{{ content.settings.secondary_link }}">{{ content.settings.secondary_label }}</a>{% endif %}
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "settings": [
+    { "type": "header", "content": "Layout" },
+    { "type": "select", "id": "layout", "label": "Image position", "default": "image_first", "options": [{ "value": "image_first", "label": "Image first" }, { "value": "text_first", "label": "Text first" }] },
+    { "type": "header", "content": "Design controls" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
+    { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "color", "id": "background_color", "label": "Background color" }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Image alt text" }
+      ]
+    },
+    {
+      "type": "content",
+      "name": "Content",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Pair a photo with a short story about your product or brand.</p>" },
+        { "type": "text", "id": "primary_label", "label": "Primary button label" },
+        { "type": "url", "id": "primary_link", "label": "Primary button link" },
+        { "type": "text", "id": "secondary_label", "label": "Secondary button label" },
+        { "type": "url", "id": "secondary_link", "label": "Secondary button link" }
+      ]
+    }
+  ],
+  "max_blocks": 2,
+  "presets": [
+    {
+      "name": "Image with text",
+      "blocks": [
+        { "type": "image" },
+        { "type": "content", "settings": { "heading": "Image with text", "primary_label": "Learn more" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
