@@ -11,6 +11,9 @@ theme editor.
 - Headings, eyebrow, copy and buttons → editable `content` / `intro` blocks
 - Repeatable cards (benefits, categories, reviews, journal stories) → one block type per card
 - Only true data (e.g. a `collection` picker that loads products) stays a section setting
+- Every section exposes a **Design controls** settings group on the `<section>` element:
+  `padding_top`, `padding_bottom`, `margin_top`, `margin_bottom` (range, px) and
+  `background_color` (color), rendered as an inline `style` attribute
 - Every block needs `name` + `settings`; every section needs a `presets` array that lists its blocks
 - Register every block instance in `templates/*.json` with `"blocks"` and `"block_order"` or the section renders empty
 

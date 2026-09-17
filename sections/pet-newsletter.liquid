@@ -1,6 +1,6 @@
 {{ 'section-pet-newsletter.css' | asset_url | stylesheet_tag }}
 
-<section class="pet-newsletter">
+<section class="pet-newsletter" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}">
   <div class="pet-container pet-newsletter__inner">
     {% assign intro_blocks = section.blocks | where: 'type', 'intro' %}
     {% if intro_blocks.size > 0 %}
@@ -36,6 +36,14 @@
 {% schema %}
 {
   "name": "Newsletter signup",
+  "settings": [
+    { "type": "header", "content": "Design controls" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 68 },
+    { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "color", "id": "background_color", "label": "Background color" }
+  ],
   "blocks": [
     {
       "type": "intro",
