@@ -1,0 +1,81 @@
+{{ 'section-pet-smart-feeder.css' | asset_url | stylesheet_tag }}
+
+<section class="pet-feeder">
+  <div class="pet-container pet-feeder__grid">
+    <div class="pet-feeder__media">
+      {% assign media_blocks = section.blocks | where: 'type', 'media' %}
+      {% if media_blocks.size > 0 and media_blocks.first.settings.image != blank %}
+        {{ media_blocks.first.settings.image | image_url: width: 1100 | image_tag: loading: 'lazy', widths: '500, 750, 1100', alt: media_blocks.first.settings.alt_text }}
+      {% else %}
+        <div class="pet-feeder__placeholder" aria-hidden="true">
+          <span>🐾</span>
+          <p>Smart feeder image</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="pet-feeder__content">
+      {% assign content_blocks = section.blocks | where: 'type', 'content' %}
+      {% if content_blocks.size > 0 %}
+        {% assign content = content_blocks.first %}
+        {% if content.settings.eyebrow != blank %}<p class="pet-feeder__eyebrow" {{ content.shopify_attributes }}>{{ content.settings.eyebrow }}</p>{% endif %}
+        <h2 class="pet-heading">{{ content.settings.heading }}</h2>
+        <div class="pet-copy pet-feeder__description">{{ content.settings.description }}</div>
+      {% else %}
+        <p class="pet-feeder__eyebrow">Limited time smart tech offer</p>
+        <h2 class="pet-heading">Take the Stress Out of Feeding with Smart Pet Feeders</h2>
+        <div class="pet-copy pet-feeder__description"><p>Schedule, monitor, and portion feed your pets directly from your phone. Keeps food crunchy-fresh and tracks eating habits automatically.</p></div>
+      {% endif %}
+
+      <ul class="pet-feeder__points" role="list">
+        {% assign point_blocks = section.blocks | where: 'type', 'selling_point' %}
+        {% if point_blocks.size > 0 %}
+          {% for block in point_blocks %}
+            <li {{ block.shopify_attributes }}><span aria-hidden="true">✓</span>{{ block.settings.text }}</li>
+          {% endfor %}
+        {% else %}
+          <li><span aria-hidden="true">✓</span>100% moisture-sealed fresh-locking container</li>
+          <li><span aria-hidden="true">✓</span>Automatic personalized voice recordings for mealtimes</li>
+          <li><span aria-hidden="true">✓</span>Anti-jam food dispensing optimized for kibble sizes</li>
+        {% endif %}
+      </ul>
+
+      {% assign offer_blocks = section.blocks | where: 'type', 'offer' %}
+      {% if offer_blocks.size > 0 %}{% assign offer = offer_blocks.first %}{% else %}{% assign offer = blank %}{% endif %}
+      <div class="pet-feeder__offer"{% if offer != blank %} {{ offer.shopify_attributes }}{% endif %}><div><p>{{ offer.settings.price_label | default: 'Special Promo Price' }}</p><strong>{{ offer.settings.price | default: '$89.99' }}</strong>{% if offer.settings.compare_price != blank %}<s>{{ offer.settings.compare_price }}</s>{% elsif offer == blank %}<s>$120.00</s>{% endif %}</div><a class="pet-button" href="{{ offer.settings.button_link | default: routes.all_products_collection_url }}">{{ offer.settings.button_label | default: 'Claim Special Discount' }} <span aria-hidden="true">→</span></a></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Smart feeder promotion",
+  "settings": [],
+  "blocks": [
+    { "type": "media", "name": "Image", "limit": 1, "settings": [{ "type": "image_picker", "id": "image", "label": "Product lifestyle image" }, { "type": "text", "id": "alt_text", "label": "Image description", "default": "Smart pet feeder" }] },
+    { "type": "content", "name": "Content", "limit": 1, "settings": [{ "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Limited time smart tech offer" }, { "type": "text", "id": "heading", "label": "Heading", "default": "Take the Stress Out of Feeding with Smart Pet Feeders" }, { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Schedule, monitor, and portion feed your pets directly from your phone.</p>" }] },
+    {
+      "type": "selling_point",
+      "name": "Selling point",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "100% moisture-sealed fresh-locking container" }
+      ]
+    },
+    { "type": "offer", "name": "Price and button", "limit": 1, "settings": [{ "type": "text", "id": "price_label", "label": "Price label", "default": "Special Promo Price" }, { "type": "text", "id": "price", "label": "Price", "default": "$89.99" }, { "type": "text", "id": "compare_price", "label": "Compare-at price", "default": "$120.00" }, { "type": "text", "id": "button_label", "label": "Button label", "default": "Claim Special Discount" }, { "type": "url", "id": "button_link", "label": "Button link" }] }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Smart feeder promotion",
+      "blocks": [
+        { "type": "media" },
+        { "type": "content" },
+        { "type": "selling_point" },
+        { "type": "selling_point", "settings": { "text": "Automatic personalized voice recordings for mealtimes" } },
+        { "type": "selling_point", "settings": { "text": "Anti-jam food dispensing optimized for kibble sizes" } },
+        { "type": "offer" }
+      ]
+    }
+  ]
+}
+{% endschema %}
