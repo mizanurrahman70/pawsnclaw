@@ -14,7 +14,18 @@
     <div class="pet-category-grid">
       {% for block in section.blocks %}
         {% if block.type == 'category' %}
-          <a class="pet-category" href="{{ block.settings.link }}" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
+          {% liquid
+            assign category_handle = block.settings.title | handle
+            assign category_collection = collections[category_handle]
+            if block.settings.link != blank
+              assign category_url = block.settings.link
+            elsif category_collection != blank
+              assign category_url = category_collection.url
+            else
+              assign category_url = '/collections/' | append: category_handle
+            endif
+          %}
+          <a class="pet-category" href="{{ category_url }}" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
             {% if block.settings.image != blank %}
               {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: block.settings.title }}
             {% else %}
@@ -28,12 +39,61 @@
             {% endif %}
             <div>
               <h3>{{ block.settings.title }}</h3>
-              <p>{{ block.settings.subtitle }}</p>
+              {% if block.settings.subtitle != blank %}
+                <p>{{ block.settings.subtitle }}</p>
+              {% elsif category_collection != blank %}
+                <p>{{ category_collection.products_count }} products</p>
+              {% endif %}
             </div>
           </a>
         {% endif %}
       {% endfor %}
     </div>
+
+    {% if section.settings.show_products %}
+      {% for block in section.blocks %}
+        {% if block.type == 'category' %}
+          {% liquid
+            assign category_handle = block.settings.title | handle
+            assign category_collection = collections[category_handle]
+            if block.settings.link != blank
+              assign category_url = block.settings.link
+            elsif category_collection != blank
+              assign category_url = category_collection.url
+            else
+              assign category_url = '/collections/' | append: category_handle
+            endif
+          %}
+          {% if category_collection != blank and category_collection.products.size > 0 %}
+            <div class="pet-cat-products" {{ block.shopify_attributes }}>
+              <div class="pet-cat-products__head">
+                <h3><a href="{{ category_url }}">{{ block.settings.title }}</a></h3>
+                <a class="pet-button pet-button--outline" href="{{ category_url }}">View all →</a>
+              </div>
+              <div class="pet-products">
+                {% for product in category_collection.products limit: section.settings.products_per_category %}
+                  <article class="pet-product">
+                    <a href="{{ product.url }}" class="pet-product__image">
+                      {% if product.featured_image %}
+                        {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+                      {% else %}
+                        <span class="pet-product__image--empty" aria-hidden="true">🐾</span>
+                      {% endif %}
+                    </a>
+                    <div class="pet-product__body">
+                      <p class="pet-product__vendor">{{ product.vendor }}</p>
+                      <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+                      <p class="pet-product__stars">★★★★★ <span>{{ product.metafields.reviews.rating.value | default: '4.8' }}</span></p>
+                      <strong>{{ product.price | money }}</strong>
+                    </div>
+                  </article>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 </section>
 
@@ -41,6 +101,9 @@
 {
   "name": "Pet categories",
   "settings": [
+    { "type": "header", "content": "Collection products" },
+    { "type": "checkbox", "id": "show_products", "label": "Show products per category", "default": true },
+    { "type": "range", "id": "products_per_category", "label": "Products per category", "min": 4, "max": 8, "step": 1, "default": 4 },
     { "type": "header", "content": "Design controls" },
     { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
     { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
