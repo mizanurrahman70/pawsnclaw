@@ -99,7 +99,6 @@
 .pet-product-detail__price em {
   background: #e4f7ef;
   border-radius: var(--radius-pill);
-  color: #08a875;
   font-size: 12px;
   font-style: normal;
   font-weight: 800;

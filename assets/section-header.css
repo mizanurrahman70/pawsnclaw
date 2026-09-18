@@ -62,11 +62,6 @@
 .site-header__nav a:hover {
   color: var(--color-primary);
 }
-
-.site-header__nav .site-header__sale {
-  color: #08a875;
-}
-
 .site-header__tools {
   align-items: center;
   display: flex;
