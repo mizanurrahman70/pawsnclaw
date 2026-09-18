@@ -40,13 +40,15 @@
 }
 
 .pet-column h3 {
-  font-size: 17px;
+  color: var(--pet-heading-color, var(--color-foreground));
+  font-size: var(--pet-heading-size, 17px);
+  font-weight: var(--pet-heading-weight, 700);
   margin: 18px 0 8px;
 }
 
 .pet-column > p {
-  color: #66758c;
-  font-size: 13px;
+  color: var(--pet-text-color, #66758c);
+  font-size: var(--pet-text-size, 13px);
   line-height: 1.6;
   margin: 0;
 }

@@ -1,9 +1,9 @@
 {{ 'section-pet-journal.css' | asset_url | stylesheet_tag }}
-<section class="pet-section pet-journal" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}">
+<section class="pet-section pet-journal" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}{% render 'style-controls', section: section %}">
   <div class="pet-container">
     {% for block in section.blocks %}
       {% if block.type == 'intro' %}
-        <div class="pet-section__intro" {{ block.shopify_attributes }}>
+        <div class="pet-section__intro" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
           {% if block.settings.eyebrow != blank %}<p class="pet-eyebrow">{{ block.settings.eyebrow }}</p>{% endif %}
           {% if block.settings.heading != blank %}<h2 class="pet-heading">{{ block.settings.heading }}</h2>{% endif %}
           {% if block.settings.copy != blank %}<p class="pet-copy">{{ block.settings.copy }}</p>{% endif %}
@@ -14,7 +14,7 @@
     <div class="pet-journal__grid">
       {% for block in section.blocks %}
         {% if block.type == 'article' %}
-          <article class="pet-story" {{ block.shopify_attributes }}>
+          <article class="pet-story" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
             {% if block.settings.image != blank %}
               {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block.settings.title }}
             {% else %}
@@ -41,7 +41,14 @@
     { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
     { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
     { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
-    { "type": "color", "id": "background_color", "label": "Background color" }
+    { "type": "color", "id": "background_color", "label": "Background color" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "heading_color", "label": "Heading color" },
+    { "type": "color", "id": "text_color", "label": "Text color" },
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "heading_font_size", "label": "Heading size", "min": 0, "max": 120, "step": 2, "unit": "px", "default": 0 },
+    { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+    { "type": "range", "id": "body_font_size", "label": "Body text size", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 }
   ],
   "blocks": [
     {
@@ -50,7 +57,12 @@
       "settings": [
         { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Helpful guides" },
         { "type": "text", "id": "heading", "label": "Heading", "default": "Our pet care journal" },
-        { "type": "richtext", "id": "copy", "label": "Text", "default": "<p>Tips, tricks, and stories for the little lives that fill your home.</p>" }
+        { "type": "richtext", "id": "copy", "label": "Text", "default": "<p>Tips, tricks, and stories for the little lives that fill your home.</p>" },
+        { "type": "header", "content": "Design controls" },
+        { "type": "color", "id": "heading_color", "label": "Heading color" },
+        { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+        { "type": "color", "id": "text_color", "label": "Text color" },
+        { "type": "color", "id": "background_color", "label": "Background color" }
       ]
     },
     {
@@ -61,7 +73,12 @@
         { "type": "text", "id": "category", "label": "Category", "default": "Cat health" },
         { "type": "text", "id": "read_time", "label": "Read time", "default": "4 min read" },
         { "type": "text", "id": "title", "label": "Title", "default": "Is your cat drinking enough water?" },
-        { "type": "url", "id": "link", "label": "Article link" }
+        { "type": "url", "id": "link", "label": "Article link" },
+        { "type": "header", "content": "Design controls" },
+        { "type": "color", "id": "heading_color", "label": "Heading color" },
+        { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+        { "type": "color", "id": "text_color", "label": "Text color" },
+        { "type": "color", "id": "background_color", "label": "Background color" }
       ]
     }
   ],

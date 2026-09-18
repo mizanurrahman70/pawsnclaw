@@ -1,0 +1,10 @@
+{%- liquid
+  assign block_heading_color = block.settings.heading_color
+  assign block_heading_weight = block.settings.heading_font_weight
+  assign block_text_color = block.settings.text_color
+  assign block_bg = block.settings.background_color
+-%}
+{%- if block_heading_color != blank -%};--pet-heading-color: {{ block_heading_color }}{%- endif -%}
+{%- if block_heading_weight != blank and block_heading_weight != 'inherit' -%};--pet-heading-weight: {{ block_heading_weight }}{%- endif -%}
+{%- if block_text_color != blank -%};--pet-text-color: {{ block_text_color }}{%- endif -%}
+{%- if block_bg != blank -%};background-color: {{ block_bg }}{%- endif -%}

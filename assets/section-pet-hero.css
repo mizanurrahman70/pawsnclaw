@@ -4,9 +4,9 @@
 .pet-hero__block + .pet-hero__block { margin-top: 24px; }
 .pet-hero__copy .pet-copy { margin-top: 22px; }
 .pet-hero__copy + .pet-hero__checks, .pet-hero__block + .pet-hero__checks, .pet-hero__checks + .pet-hero__block { margin-top: 24px; }
-.pet-hero__copy h1 { font-size: clamp(42px, 4.7vw, 68px); letter-spacing: -.065em; line-height: .98; margin: 13px 0 0; max-width: 670px; }
-.pet-hero__copy h1 em { color: var(--color-primary); font-style: normal; }.pet-hero__copy .pet-copy { font-size: 16px; max-width: 530px; }
-.pet-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }.pet-hero__checks { display: flex; flex-wrap: wrap; gap: 18px; list-style: none; margin: 0; padding: 0; color: #426178; font-size: 13px; font-weight: 700; }.pet-hero__checks li::first-letter { color: var(--color-success); }
+.pet-hero__copy h1 { color: var(--pet-heading-color, var(--color-foreground)); font-size: var(--pet-heading-size, clamp(42px, 4.7vw, 68px)); font-weight: var(--pet-heading-weight, 700); letter-spacing: -.065em; line-height: .98; margin: 13px 0 0; max-width: 670px; }
+.pet-hero__copy h1 em { color: var(--color-primary); font-style: normal; }.pet-hero__copy .pet-copy { color: var(--pet-text-color, #66758c); font-size: var(--pet-text-size, 16px); max-width: 530px; }
+.pet-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }.pet-hero__checks { display: flex; flex-wrap: wrap; gap: 18px; list-style: none; margin: 0; padding: 0; color: var(--pet-text-color, #426178); font-size: var(--pet-text-size, 13px); font-weight: 700; }.pet-hero__checks li::first-letter { color: var(--color-success); }
 .pet-hero--no-media .pet-hero__copy { grid-column: 1 / -1; }
 .pet-hero__media-column { display: flex; flex-direction: column; gap: 16px; }
 .pet-hero__media { border-radius: 25px; overflow: hidden; min-height: 410px; }.pet-hero__media img { height: 100%; object-fit: cover; width: 100%; }.pet-hero__placeholder { align-items: end; background: linear-gradient(135deg,#bde8f5,#88bed5); display: flex; font-size: clamp(105px, 15vw, 210px); height: 100%; justify-content: center; overflow: hidden; padding: 45px 10px 0; }

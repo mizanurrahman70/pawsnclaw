@@ -1,12 +1,12 @@
 {{ 'section-pet-hero.css' | asset_url | stylesheet_tag }}
 {% assign image_blocks = section.blocks | where: 'type', 'image' %}
-<section class="pet-hero{% if image_blocks.size == 0 %} pet-hero--no-media{% endif %}" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}">
+<section class="pet-hero{% if image_blocks.size == 0 %} pet-hero--no-media{% endif %}" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}{% render 'style-controls', section: section %}">
   <div class="pet-container pet-hero__grid">
     <div class="pet-hero__copy">
       {% for block in section.blocks %}
         {% case block.type %}
           {% when 'content' %}
-            <div class="pet-hero__block" {{ block.shopify_attributes }}>
+            <div class="pet-hero__block" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
               {% if block.settings.eyebrow != blank %}<p class="pet-eyebrow">{{ block.settings.eyebrow }}</p>{% endif %}
               {% if block.settings.heading != blank %}<h1>{{ block.settings.heading }}</h1>{% endif %}
               {% if block.settings.text != blank %}<div class="pet-copy">{{ block.settings.text }}</div>{% endif %}
@@ -18,7 +18,7 @@
               {% endif %}
             </div>
           {% when 'checks' %}
-            <ul class="pet-hero__checks" {{ block.shopify_attributes }}>
+            <ul class="pet-hero__checks" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
               {% assign items = block.settings.items | split: '
 ' %}
               {% for item in items %}
@@ -51,7 +51,14 @@
     { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 },
     { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
     { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
-    { "type": "color", "id": "background_color", "label": "Background color" }
+    { "type": "color", "id": "background_color", "label": "Background color" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "heading_color", "label": "Heading color" },
+    { "type": "color", "id": "text_color", "label": "Text color" },
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "heading_font_size", "label": "Heading size", "min": 0, "max": 120, "step": 2, "unit": "px", "default": 0 },
+    { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+    { "type": "range", "id": "body_font_size", "label": "Body text size", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 }
   ],
   "max_blocks": 8,
   "blocks": [
@@ -65,7 +72,12 @@
         { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop for Dogs" },
         { "type": "url", "id": "primary_link", "label": "Primary button link" },
         { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Shop for Cats" },
-        { "type": "url", "id": "secondary_link", "label": "Secondary button link" }
+        { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
+        { "type": "header", "content": "Design controls" },
+        { "type": "color", "id": "heading_color", "label": "Heading color" },
+        { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+        { "type": "color", "id": "text_color", "label": "Text color" },
+        { "type": "color", "id": "background_color", "label": "Background color" }
       ]
     },
     {
@@ -80,7 +92,10 @@
       "type": "checks",
       "name": "Trust checks",
       "settings": [
-        { "type": "textarea", "id": "items", "label": "Items (one per line)", "default": "Fast shipping\nAuto-delivery, save 15%\nVet-approved picks" }
+        { "type": "textarea", "id": "items", "label": "Items (one per line)", "default": "Fast shipping\nAuto-delivery, save 15%\nVet-approved picks" },
+        { "type": "header", "content": "Design controls" },
+        { "type": "color", "id": "text_color", "label": "Text color" },
+        { "type": "color", "id": "background_color", "label": "Background color" }
       ]
     }
   ],

@@ -41,7 +41,7 @@
 }
 
 .pet-image-text__body {
-  font-size: 16px;
+  font-size: var(--pet-text-size, 16px);
   margin-top: 16px;
 }
 

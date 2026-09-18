@@ -1,17 +1,17 @@
 {{ 'section-footer.css' | asset_url | stylesheet_tag }}
 
-<footer class="pet-footer full-width">
+<footer class="pet-footer full-width" style="{% if section.settings.background_color != blank %}background-color:{{ section.settings.background_color }}{% endif %}{% render 'style-controls', section: section %}">
   <div class="pet-container">
     <div class="pet-footer__grid">
       {% assign brand_blocks = section.blocks | where: 'type', 'brand' %}
       {% if brand_blocks.size > 0 %}{% assign brand = brand_blocks.first %}{% else %}{% assign brand = blank %}{% endif %}
-      <div class="pet-footer__brand"{% if brand != blank %} {{ brand.shopify_attributes }}{% endif %}>
+      <div class="pet-footer__brand" style="{% render 'block-style-controls', block: brand %}"{% if brand != blank %} {{ brand.shopify_attributes }}{% endif %}>
         <a href="{{ routes.root_url }}"><span>✦</span>{{ brand.settings.name | default: shop.name | default: 'PAWS&CLAW' }}</a>
         <div>{{ brand.settings.copy | default: 'We’re dedicated to improving the daily wellness and lifelong happiness of your best dog and cat friends.' }}</div>
         <p class="pet-footer__social"><a href="{{ brand.settings.facebook | default: routes.root_url }}" aria-label="Facebook">f</a><a href="{{ brand.settings.instagram | default: routes.root_url }}" aria-label="Instagram">◎</a><a href="{{ brand.settings.youtube | default: routes.root_url }}" aria-label="YouTube">▶</a></p>
       </div>
       {% assign menu_blocks = section.blocks | where: 'type', 'menu_column' %}
-      {% for block in menu_blocks %}<div class="pet-footer__column" {{ block.shopify_attributes }}><h2>{{ block.settings.heading }}</h2>{% if block.settings.menu != blank %}<ul>{% for link in block.settings.menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}</ul>{% else %}<ul><li><a href="{{ routes.all_products_collection_url }}">Shop all products</a></li><li><a href="{{ routes.search_url }}?q=dog&amp;type=product">Shop dogs</a></li><li><a href="{{ routes.search_url }}?q=cat&amp;type=product">Shop cats</a></li></ul>{% endif %}</div>{% endfor %}
+      {% for block in menu_blocks %}<div class="pet-footer__column" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}><h2>{{ block.settings.heading }}</h2>{% if block.settings.menu != blank %}<ul>{% for link in block.settings.menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}</ul>{% else %}<ul><li><a href="{{ routes.all_products_collection_url }}">Shop all products</a></li><li><a href="{{ routes.search_url }}?q=dog&amp;type=product">Shop dogs</a></li><li><a href="{{ routes.search_url }}?q=cat&amp;type=product">Shop cats</a></li></ul>{% endif %}</div>{% endfor %}
     </div>
     <div class="pet-footer__bottom"><small>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved. Powered by Shopify.</small><a href="{{ routes.cart_url }}">View cart</a></div>
   </div>
@@ -20,6 +20,16 @@
 {% schema %}
 {
   "name": "Footer",
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background color" },
+    { "type": "color", "id": "heading_color", "label": "Heading color" },
+    { "type": "color", "id": "text_color", "label": "Text color" },
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "heading_font_size", "label": "Heading size", "min": 0, "max": 120, "step": 2, "unit": "px", "default": 0 },
+    { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+    { "type": "range", "id": "body_font_size", "label": "Body text size", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 }
+  ],
   "blocks": [
     {
       "type": "brand",
@@ -30,7 +40,12 @@
         { "type": "textarea", "id": "copy", "label": "Description", "default": "We’re dedicated to improving the daily wellness and lifelong happiness of your best dog and cat friends." },
         { "type": "url", "id": "facebook", "label": "Facebook link" },
         { "type": "url", "id": "instagram", "label": "Instagram link" },
-        { "type": "url", "id": "youtube", "label": "YouTube link" }
+        { "type": "url", "id": "youtube", "label": "YouTube link" },
+        { "type": "header", "content": "Design controls" },
+        { "type": "color", "id": "heading_color", "label": "Brand color" },
+        { "type": "select", "id": "heading_font_weight", "label": "Brand weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+        { "type": "color", "id": "text_color", "label": "Text color" },
+        { "type": "color", "id": "background_color", "label": "Background color" }
       ]
     },
     {
@@ -38,7 +53,12 @@
       "name": "Menu column",
       "settings": [
         { "type": "text", "id": "heading", "label": "Heading", "default": "Shop Dogs" },
-        { "type": "link_list", "id": "menu", "label": "Menu" }
+        { "type": "link_list", "id": "menu", "label": "Menu" },
+        { "type": "header", "content": "Design controls" },
+        { "type": "color", "id": "heading_color", "label": "Heading color" },
+        { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+        { "type": "color", "id": "text_color", "label": "Text color" },
+        { "type": "color", "id": "background_color", "label": "Background color" }
       ]
     }
   ],

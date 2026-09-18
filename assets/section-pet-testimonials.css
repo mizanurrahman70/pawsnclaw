@@ -32,14 +32,17 @@
   width: 40px;
 }
 
-.pet-testimonial strong,
-.pet-testimonial small {
+.pet-testimonial strong {
+  color: var(--pet-heading-color, var(--color-foreground));
   display: block;
-  font-size: 12px;
+  font-size: var(--pet-heading-size, 12px);
+  font-weight: var(--pet-heading-weight, 700);
 }
 
 .pet-testimonial small {
   color: #768398;
+  display: block;
+  font-size: 12px;
 }
 
 .pet-testimonial__stars {
@@ -49,8 +52,8 @@
 }
 
 .pet-testimonial > p:last-child {
-  color: #596a81;
-  font-size: 13px;
+  color: var(--pet-text-color, #596a81);
+  font-size: var(--pet-text-size, 13px);
   line-height: 1.6;
 }
 

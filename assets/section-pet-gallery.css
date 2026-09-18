@@ -39,8 +39,8 @@
 }
 
 .pet-gallery__item figcaption {
-  color: #66758c;
-  font-size: 12px;
+  color: var(--pet-text-color, #66758c);
+  font-size: var(--pet-text-size, 12px);
   margin-top: 10px;
 }
 

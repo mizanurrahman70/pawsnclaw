@@ -1,9 +1,9 @@
 {{ 'section-pet-rich-text.css' | asset_url | stylesheet_tag }}
-<section class="pet-rich-text" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}">
+<section class="pet-rich-text" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}{% render 'style-controls', section: section %}">
   <div class="pet-container">
     {% for block in section.blocks %}
       {% if block.type == 'content' %}
-        <div class="pet-rich-text__inner pet-rich-text__inner--{{ block.settings.width }} pet-rich-text__inner--{{ block.settings.alignment }}" {{ block.shopify_attributes }}>
+        <div class="pet-rich-text__inner pet-rich-text__inner--{{ block.settings.width }} pet-rich-text__inner--{{ block.settings.alignment }}" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
           {% if block.settings.eyebrow != blank %}<p class="pet-eyebrow">{{ block.settings.eyebrow }}</p>{% endif %}
           {% if block.settings.heading != blank %}<h2 class="pet-heading pet-rich-text__heading">{{ block.settings.heading }}</h2>{% endif %}
           {% if block.settings.text != blank %}<div class="pet-copy pet-rich-text__body">{{ block.settings.text }}</div>{% endif %}
@@ -28,7 +28,14 @@
     { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
     { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
     { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
-    { "type": "color", "id": "background_color", "label": "Background color" }
+    { "type": "color", "id": "background_color", "label": "Background color" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "heading_color", "label": "Heading color" },
+    { "type": "color", "id": "text_color", "label": "Text color" },
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "heading_font_size", "label": "Heading size", "min": 0, "max": 120, "step": 2, "unit": "px", "default": 0 },
+    { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+    { "type": "range", "id": "body_font_size", "label": "Body text size", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 }
   ],
   "blocks": [
     {
@@ -44,7 +51,12 @@
         { "type": "text", "id": "secondary_label", "label": "Secondary button label" },
         { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
         { "type": "select", "id": "width", "label": "Content width", "default": "medium", "options": [{ "value": "narrow", "label": "Narrow" }, { "value": "medium", "label": "Medium" }, { "value": "wide", "label": "Wide" }] },
-        { "type": "select", "id": "alignment", "label": "Alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }] }
+        { "type": "select", "id": "alignment", "label": "Alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }] },
+        { "type": "header", "content": "Design controls" },
+        { "type": "color", "id": "heading_color", "label": "Heading color" },
+        { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+        { "type": "color", "id": "text_color", "label": "Text color" },
+        { "type": "color", "id": "background_color", "label": "Background color" }
       ]
     }
   ],

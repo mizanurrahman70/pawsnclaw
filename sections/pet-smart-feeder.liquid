@@ -16,8 +16,8 @@
       {% if content_blocks.size > 0 %}
         {% assign content = content_blocks.first %}
         {% if content.settings.eyebrow != blank %}<p class="pet-feeder__eyebrow" {{ content.shopify_attributes }}>{{ content.settings.eyebrow }}</p>{% endif %}
-        <h2 class="pet-heading">{{ content.settings.heading }}</h2>
-        <div class="pet-copy pet-feeder__description">{{ content.settings.description }}</div>
+        <h2 class="pet-heading" style="{% render 'block-style-controls', block: content %}">{{ content.settings.heading }}</h2>
+        <div class="pet-copy pet-feeder__description" style="{% render 'block-style-controls', block: content %}">{{ content.settings.description }}</div>
       {% else %}
         <p class="pet-feeder__eyebrow">Limited time smart tech offer</p>
         <h2 class="pet-heading">Take the Stress Out of Feeding with Smart Pet Feeders</h2>
@@ -53,11 +53,18 @@
     { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 80 },
     { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
     { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
-    { "type": "color", "id": "background_color", "label": "Background color" }
+    { "type": "color", "id": "background_color", "label": "Background color" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "heading_color", "label": "Heading color" },
+    { "type": "color", "id": "text_color", "label": "Text color" },
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "heading_font_size", "label": "Heading size", "min": 0, "max": 120, "step": 2, "unit": "px", "default": 0 },
+    { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+    { "type": "range", "id": "body_font_size", "label": "Body text size", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 }
   ],
   "blocks": [
     { "type": "media", "name": "Image", "limit": 1, "settings": [{ "type": "image_picker", "id": "image", "label": "Product lifestyle image" }, { "type": "text", "id": "alt_text", "label": "Image description", "default": "Smart pet feeder" }] },
-    { "type": "content", "name": "Content", "limit": 1, "settings": [{ "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Limited time smart tech offer" }, { "type": "text", "id": "heading", "label": "Heading", "default": "Take the Stress Out of Feeding with Smart Pet Feeders" }, { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Schedule, monitor, and portion feed your pets directly from your phone.</p>" }] },
+    { "type": "content", "name": "Content", "limit": 1, "settings": [{ "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Limited time smart tech offer" }, { "type": "text", "id": "heading", "label": "Heading", "default": "Take the Stress Out of Feeding with Smart Pet Feeders" }, { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Schedule, monitor, and portion feed your pets directly from your phone.</p>" }, { "type": "header", "content": "Design controls" }, { "type": "color", "id": "heading_color", "label": "Heading color" }, { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] }, { "type": "color", "id": "text_color", "label": "Text color" }, { "type": "color", "id": "background_color", "label": "Background color" }] },
     {
       "type": "selling_point",
       "name": "Selling point",

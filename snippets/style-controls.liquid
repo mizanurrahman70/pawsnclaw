@@ -1,0 +1,12 @@
+{%- liquid
+  assign heading_color = section.settings.heading_color
+  assign heading_size = section.settings.heading_font_size
+  assign heading_weight = section.settings.heading_font_weight
+  assign text_color = section.settings.text_color
+  assign text_size = section.settings.body_font_size
+-%}
+{%- if heading_color != blank -%};--pet-heading-color: {{ heading_color }}{%- endif -%}
+{%- if heading_size != blank and heading_size > 0 -%};--pet-heading-size: {{ heading_size }}px{%- endif -%}
+{%- if heading_weight != blank and heading_weight != 'inherit' -%};--pet-heading-weight: {{ heading_weight }}{%- endif -%}
+{%- if text_color != blank -%};--pet-text-color: {{ text_color }}{%- endif -%}
+{%- if text_size != blank and text_size > 0 -%};--pet-text-size: {{ text_size }}px{%- endif -%}

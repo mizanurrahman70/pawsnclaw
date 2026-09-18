@@ -4,7 +4,7 @@
 {% assign content_blocks = section.blocks | where: 'type', 'content' %}
 {% assign content = content_blocks.first %}
 
-<section class="pet-image-text pet-image-text--{{ section.settings.layout }}" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}">
+<section class="pet-image-text pet-image-text--{{ section.settings.layout }}" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}{% render 'style-controls', section: section %}">
   <div class="pet-container pet-image-text__grid">
     <div class="pet-image-text__media"{% if media != blank %} {{ media.shopify_attributes }}{% endif %}>
       {% if media != blank and media.settings.image != blank %}
@@ -14,7 +14,7 @@
       {% endif %}
     </div>
 
-    <div class="pet-image-text__content"{% if content != blank %} {{ content.shopify_attributes }}{% endif %}>
+    <div class="pet-image-text__content" style="{% render 'block-style-controls', block: content %}"{% if content != blank %} {{ content.shopify_attributes }}{% endif %}>
       {% if content != blank %}
         {% if content.settings.eyebrow != blank %}<p class="pet-eyebrow">{{ content.settings.eyebrow }}</p>{% endif %}
         {% if content.settings.heading != blank %}<h2 class="pet-heading">{{ content.settings.heading }}</h2>{% endif %}
@@ -41,7 +41,14 @@
     { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
     { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
     { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
-    { "type": "color", "id": "background_color", "label": "Background color" }
+    { "type": "color", "id": "background_color", "label": "Background color" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "heading_color", "label": "Heading color" },
+    { "type": "color", "id": "text_color", "label": "Text color" },
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "heading_font_size", "label": "Heading size", "min": 0, "max": 120, "step": 2, "unit": "px", "default": 0 },
+    { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+    { "type": "range", "id": "body_font_size", "label": "Body text size", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 }
   ],
   "blocks": [
     {
@@ -64,7 +71,12 @@
         { "type": "text", "id": "primary_label", "label": "Primary button label" },
         { "type": "url", "id": "primary_link", "label": "Primary button link" },
         { "type": "text", "id": "secondary_label", "label": "Secondary button label" },
-        { "type": "url", "id": "secondary_link", "label": "Secondary button link" }
+        { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
+        { "type": "header", "content": "Design controls" },
+        { "type": "color", "id": "heading_color", "label": "Heading color" },
+        { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+        { "type": "color", "id": "text_color", "label": "Text color" },
+        { "type": "color", "id": "background_color", "label": "Background color" }
       ]
     }
   ],

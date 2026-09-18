@@ -1,5 +1,5 @@
 {{ 'section-header.css' | asset_url | stylesheet_tag }}
-<header class="site-header">
+<header class="site-header" style="{% if section.settings.background_color != blank %}background-color:{{ section.settings.background_color }}{% endif %}{% render 'style-controls', section: section %}">
   <div class="site-header__inner">
     <a class="site-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | default: 'Paws & Claw' }} home">
       {% if section.settings.logo != blank %}
@@ -42,7 +42,15 @@
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Logo image" },
     { "type": "text", "id": "brand_name", "label": "Fallback brand name", "default": "PAWS&CLAW" },
-    { "type": "link_list", "id": "menu", "label": "Navigation menu", "info": "Leave empty to use the working Paws & Claw fallback navigation." }
+    { "type": "link_list", "id": "menu", "label": "Navigation menu", "info": "Leave empty to use the working Paws & Claw fallback navigation." },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background color" },
+    { "type": "color", "id": "heading_color", "label": "Brand color" },
+    { "type": "color", "id": "text_color", "label": "Menu text color" },
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "heading_font_size", "label": "Brand size", "min": 0, "max": 120, "step": 2, "unit": "px", "default": 0 },
+    { "type": "select", "id": "heading_font_weight", "label": "Brand weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+    { "type": "range", "id": "body_font_size", "label": "Menu text size", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 }
   ]
 }
 {% endschema %}

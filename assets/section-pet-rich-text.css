@@ -23,13 +23,13 @@
 }
 
 .pet-rich-text__body {
-  color: #66758c;
-  font-size: 16px;
+  color: var(--pet-text-color, #66758c);
+  font-size: var(--pet-text-size, 16px);
   margin-top: 16px;
 }
 
 .pet-rich-text__body p {
-  font-size: 16px;
+  font-size: var(--pet-text-size, 16px);
 }
 
 .pet-rich-text__actions {

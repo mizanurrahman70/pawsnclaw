@@ -4,8 +4,8 @@ a { color: inherit; }
 .pet-section { padding: 76px 0; }
 .pet-container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
 .pet-eyebrow { color: var(--color-primary); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-.pet-heading { color: var(--color-foreground); font-size: clamp(28px, 3vw, 43px); letter-spacing: -.055em; line-height: 1.05; }
-.pet-copy { color: #66758c; }
+.pet-heading { color: var(--pet-heading-color, var(--color-foreground)); font-size: var(--pet-heading-size, clamp(28px, 3vw, 43px)); font-weight: var(--pet-heading-weight, 700); letter-spacing: -.055em; line-height: 1.05; }
+.pet-copy { color: var(--pet-text-color, #66758c); font-size: var(--pet-text-size, 15px); }
 .pet-button { align-items: center; background: var(--color-primary); border: 0; border-radius: var(--radius-pill); color: white; display: inline-flex; font-weight: 800; gap: 8px; justify-content: center; min-height: 45px; padding: 0 22px; text-decoration: none; transition: transform .18s ease, background .18s ease; }
 .pet-button:hover { background: var(--color-primary-dark); transform: translateY(-2px); }
 .pet-button--outline { background: white; border: 1px solid #cfe2f5; color: var(--color-primary); }

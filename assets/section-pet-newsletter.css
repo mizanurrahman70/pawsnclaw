@@ -21,14 +21,16 @@
 }
 
 .pet-newsletter h2 {
-  font-size: clamp(27px, 3vw, 39px);
+  color: var(--pet-heading-color, var(--color-foreground));
+  font-size: var(--pet-heading-size, clamp(27px, 3vw, 39px));
+  font-weight: var(--pet-heading-weight, 700);
   letter-spacing: -.055em;
   margin: 19px 0 10px;
 }
 
 .pet-newsletter__intro > div {
-  color: #62738a;
-  font-size: 14px;
+  color: var(--pet-text-color, #62738a);
+  font-size: var(--pet-text-size, 14px);
 }
 
 .pet-newsletter__form {
