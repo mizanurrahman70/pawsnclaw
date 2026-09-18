@@ -11,7 +11,31 @@
   "sections": {
     "main": {
       "type": "product",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "trust-1": {
+          "type": "trust",
+          "settings": {}
+        },
+        "trust-2": {
+          "type": "trust",
+          "settings": {}
+        },
+        "trust-3": {
+          "type": "trust",
+          "settings": {}
+        },
+        "accordion-1": {
+          "type": "accordion",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "trust-1",
+        "trust-2",
+        "trust-3",
+        "accordion-1"
+      ]
     }
   },
   "order": [

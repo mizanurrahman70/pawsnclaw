@@ -11,7 +11,16 @@
   "sections": {
     "main": {
       "type": "collection",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "intro": {
+          "type": "intro",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "intro"
+      ]
     }
   },
   "order": [

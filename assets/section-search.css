@@ -1,0 +1,130 @@
+.pet-search {
+  background: var(--color-surface);
+}
+
+.pet-search__form {
+  align-items: center;
+  background: var(--color-mist);
+  border-radius: var(--radius-pill);
+  display: flex;
+  gap: 10px;
+  margin: 0 0 34px;
+  max-width: 640px;
+  padding: 8px 8px 8px 20px;
+}
+
+.pet-search__form input {
+  background: transparent;
+  border: 0;
+  color: var(--color-foreground);
+  flex: 1;
+  font-size: 15px;
+  min-width: 0;
+  outline: 0;
+}
+
+.pet-search__form input::placeholder {
+  color: #75879f;
+}
+
+.pet-search__form .pet-button {
+  flex: none;
+  min-height: 40px;
+  padding: 0 20px;
+}
+
+.pet-search__results {
+  margin: 0 0 26px;
+}
+
+.pet-search__grid {
+  margin-top: 14px;
+}
+
+.pet-search__grid .pagination {
+  grid-column: 1 / -1;
+}
+
+.pet-search__empty {
+  padding: 40px 0;
+}
+
+.pet-search__grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.pet-product {
+  background: white;
+  border: 1px solid #dfeaf2;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.pet-product__image {
+  aspect-ratio: 0.95;
+  display: block;
+  overflow: hidden;
+}
+
+.pet-product__image img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.pet-product__image--empty {
+  align-items: center;
+  background: #d8edf4;
+  color: var(--color-primary);
+  display: flex;
+  font-size: 60px;
+  justify-content: center;
+}
+
+.pet-product__body {
+  padding: 15px;
+}
+
+.pet-product__vendor {
+  color: var(--pet-text-color, #748197);
+  font-size: var(--pet-text-size, 10px);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin: 0 0 5px;
+  text-transform: uppercase;
+}
+
+.pet-product h3 {
+  color: var(--pet-heading-color, var(--color-foreground));
+  font-size: var(--pet-heading-size, 14px);
+  font-weight: var(--pet-heading-weight, 700);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.pet-product h3 a {
+  text-decoration: none;
+}
+
+.pet-product__stars {
+  color: #f5ae20;
+  font-size: 12px;
+  margin: 9px 0;
+}
+
+.pet-product__stars span {
+  color: #738096;
+}
+
+.pet-product strong {
+  color: var(--color-primary);
+  font-size: 17px;
+}
+
+@media (max-width: 800px) {
+  .pet-search__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
