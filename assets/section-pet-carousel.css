@@ -1,0 +1,228 @@
+.pet-carousel {
+  overflow: hidden;
+}
+
+.pet-carousel .pet-container {
+  position: relative;
+}
+
+.pet-carousel__frame {
+  background: var(--color-surface);
+  border-radius: 24px;
+  min-height: 480px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pet-carousel__slide {
+  color: white;
+  display: grid;
+  grid-template-areas: 'stack';
+  min-height: 480px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  transition: opacity 420ms ease;
+}
+
+.pet-carousel__slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  position: relative;
+}
+
+.pet-carousel__media,
+.pet-carousel__overlay,
+.pet-carousel__content {
+  grid-area: stack;
+}
+
+.pet-carousel__media {
+  background: var(--color-mist);
+  inset: 0;
+  position: absolute;
+}
+
+.pet-carousel__media img,
+.pet-carousel__placeholder {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.pet-carousel__placeholder {
+  background: var(--color-mist);
+  fill: var(--color-primary);
+}
+
+.pet-carousel__overlay {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--pet-carousel-overlay) 78%, transparent) 0%, color-mix(in srgb, var(--pet-carousel-overlay) 36%, transparent) 48%, transparent 76%);
+  inset: 0;
+  position: absolute;
+}
+
+.pet-carousel__content {
+  align-self: center;
+  max-width: 510px;
+  padding: 64px 8.5%;
+  position: relative;
+  z-index: 1;
+}
+
+.pet-carousel__eyebrow {
+  color: #f4d58d;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .13em;
+  margin: 0 0 14px;
+  text-transform: uppercase;
+}
+
+.pet-carousel__content h2 {
+  color: var(--pet-heading-color, inherit);
+  font-family: var(--font-primary--family);
+  font-size: clamp(2.45rem, 4.2vw, 4.65rem);
+  font-style: var(--font-primary--style);
+  font-weight: var(--pet-heading-weight, 800);
+  letter-spacing: -.055em;
+  line-height: .98;
+  margin: 0;
+}
+
+.pet-carousel__text {
+  color: var(--pet-text-color, inherit);
+  font-size: 1rem;
+  line-height: 1.55;
+  margin-top: 22px;
+}
+
+.pet-carousel__text p {
+  margin: 0;
+}
+
+.pet-carousel__button {
+  align-items: center;
+  background: white;
+  border-radius: 999px;
+  color: var(--color-primary-dark);
+  display: inline-flex;
+  font-weight: 800;
+  gap: 14px;
+  margin-top: 28px;
+  padding: 14px 20px 14px 24px;
+  text-decoration: none;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.pet-carousel__button:hover {
+  background: var(--color-mist);
+  transform: translateY(-2px);
+}
+
+.pet-carousel__button:focus-visible,
+.pet-carousel__arrow:focus-visible,
+.pet-carousel__dot:focus-visible {
+  outline: 3px solid #f4d58d;
+  outline-offset: 3px;
+}
+
+.pet-carousel__controls {
+  align-items: center;
+  background: white;
+  border-radius: 999px;
+  bottom: 24px;
+  display: flex;
+  gap: 12px;
+  padding: 6px;
+  position: absolute;
+  right: 24px;
+  z-index: 2;
+}
+
+.pet-carousel__arrow,
+.pet-carousel__dot {
+  border: 0;
+  cursor: pointer;
+}
+
+.pet-carousel__arrow {
+  background: transparent;
+  border-radius: 50%;
+  color: var(--color-primary-dark);
+  font-size: 1.1rem;
+  height: 32px;
+  width: 32px;
+}
+
+.pet-carousel__arrow:hover {
+  background: var(--color-mist);
+}
+
+.pet-carousel__dots {
+  display: flex;
+  gap: 8px;
+}
+
+.pet-carousel__dot {
+  background: #cad3ce;
+  border-radius: 50%;
+  height: 7px;
+  padding: 0;
+  transition: background 180ms ease, transform 180ms ease;
+  width: 7px;
+}
+
+.pet-carousel__dot.is-active {
+  background: var(--color-primary-dark);
+  transform: scale(1.2);
+}
+
+.pet-carousel__empty {
+  align-items: center;
+  background: var(--color-mist);
+  color: var(--color-foreground);
+  display: flex;
+  justify-content: center;
+  min-height: 280px;
+  padding: 32px;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .pet-carousel__frame,
+  .pet-carousel__slide {
+    min-height: 520px;
+  }
+
+  .pet-carousel__frame {
+    border-radius: 18px;
+  }
+
+  .pet-carousel__overlay {
+    background: linear-gradient(0deg, color-mix(in srgb, var(--pet-carousel-overlay) 82%, transparent) 0%, color-mix(in srgb, var(--pet-carousel-overlay) 25%, transparent) 70%, transparent 100%);
+  }
+
+  .pet-carousel__content {
+    align-self: end;
+    max-width: none;
+    padding: 44px 28px 92px;
+  }
+
+  .pet-carousel__content h2 {
+    font-size: clamp(2.35rem, 11vw, 3.4rem);
+  }
+
+  .pet-carousel__controls {
+    bottom: 18px;
+    right: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pet-carousel__slide,
+  .pet-carousel__button,
+  .pet-carousel__dot {
+    transition: none;
+  }
+}
