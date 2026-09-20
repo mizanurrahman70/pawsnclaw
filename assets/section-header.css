@@ -48,13 +48,30 @@
   align-items: center;
   display: flex;
   gap: 31px;
+}
+
+.site-header--menu-center .site-header__nav {
+  flex: 1;
+  justify-content: center;
+  margin-left: 28px;
+}
+
+.site-header--menu-right .site-header__nav {
+  margin-left: auto;
+}
+
+.site-header--menu-left .site-header__nav {
+  margin-left: 0;
+}
+
+.site-header--menu-left .site-header__tools {
   margin-left: auto;
 }
 
 .site-header__nav a {
   color: var(--pet-text-color, var(--color-foreground));
   font-size: var(--pet-text-size, 14px);
-  font-weight: 650;
+  font-weight: var(--pet-menu-weight, 650);
   text-decoration: none;
   white-space: nowrap;
 }

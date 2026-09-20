@@ -1,5 +1,5 @@
 {{ 'section-header.css' | asset_url | stylesheet_tag }}
-<header class="site-header" style="{% if section.settings.background_color != blank %}background-color:{{ section.settings.background_color }}{% endif %}{% render 'style-controls', section: section %}">
+<header class="site-header site-header--menu-{{ section.settings.menu_alignment | default: 'center' }}" style="{% if section.settings.background_color != blank %}background-color:{{ section.settings.background_color }}{% endif %}{% render 'style-controls', section: section %}">
   <div class="site-header__inner">
     <a class="site-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | default: 'Paws & Claw' }} home">
       {% if section.settings.logo != blank %}
@@ -9,7 +9,7 @@
         <span>{{ section.settings.brand_name | default: shop.name | default: 'PAWS&CLAW' }}</span>
       {% endif %}
     </a>
-    <nav class="site-header__nav" aria-label="Main navigation">
+    <nav class="site-header__nav" aria-label="Main navigation" style="{% if section.settings.menu_font_weight != blank and section.settings.menu_font_weight != 'inherit' %}--pet-menu-weight:{{ section.settings.menu_font_weight }};{% endif %}gap:{{ section.settings.menu_gap }}px;padding:{{ section.settings.menu_padding_top }}px {{ section.settings.menu_padding_right }}px {{ section.settings.menu_padding_bottom }}px {{ section.settings.menu_padding_left }}px;margin-top:{{ section.settings.menu_margin_top }}px;margin-bottom:{{ section.settings.menu_margin_bottom }}px{% if section.settings.menu_background_color != blank %};background-color:{{ section.settings.menu_background_color }}{% endif %};border-radius:{{ section.settings.menu_border_radius }}px">
       {% if section.settings.menu != blank and section.settings.menu.links.size > 0 %}
         {% for link in section.settings.menu.links %}
           <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
@@ -23,12 +23,14 @@
       {% endif %}
     </nav>
     <div class="site-header__tools">
-      <form class="site-header__search" action="{{ routes.search_url }}" method="get" role="search">
-        <input type="hidden" name="type" value="product">
-        <label class="visually-hidden" for="header-search-{{ section.id }}">Search products</label>
-        <span aria-hidden="true">⌕</span>
-        <input id="header-search-{{ section.id }}" name="q" type="search" placeholder="Search pet favorites...">
-      </form>
+      {% if section.settings.show_search %}
+        <form class="site-header__search" action="{{ routes.search_url }}" method="get" role="search">
+          <input type="hidden" name="type" value="product">
+          <label class="visually-hidden" for="header-search-{{ section.id }}">Search products</label>
+          <span aria-hidden="true">⌕</span>
+          <input id="header-search-{{ section.id }}" name="q" type="search" placeholder="Search pet favorites...">
+        </form>
+      {% endif %}
       <a class="site-header__icon" href="{{ routes.account_url }}" aria-label="Your account">♡</a>
       <a class="site-header__cart" href="{{ routes.cart_url }}" aria-label="Cart, {{ cart.item_count }} items">{{ 'icon-cart.svg' | inline_asset_content }}<b>{{ cart.item_count }}</b></a>
     </div>
@@ -41,7 +43,19 @@
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Logo image" },
     { "type": "text", "id": "brand_name", "label": "Fallback brand name", "default": "PAWS&CLAW" },
-    { "type": "link_list", "id": "menu", "label": "Navigation menu", "info": "Leave empty to use the working Paws & Claw fallback navigation." },
+    { "type": "link_list", "id": "menu", "default": "main-menu", "label": "Navigation menu", "info": "Automatically loads the store's Main menu on install. If no menu is selected, a built-in Paws & Claw fallback navigation is shown instead." },
+    { "type": "select", "id": "menu_alignment", "label": "Menu alignment", "default": "center", "options": [ { "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" } ] },
+    { "type": "checkbox", "id": "show_search", "label": "Show search", "default": true },
+    { "type": "header", "content": "Menu design" },
+    { "type": "range", "id": "menu_gap", "label": "Link gap", "min": 0, "max": 80, "step": 1, "unit": "px", "default": 31 },
+    { "type": "range", "id": "menu_padding_top", "label": "Padding top", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "menu_padding_bottom", "label": "Padding bottom", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "menu_padding_left", "label": "Padding left", "min": 0, "max": 60, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "menu_padding_right", "label": "Padding right", "min": 0, "max": 60, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "menu_margin_top", "label": "Margin top", "min": 0, "max": 60, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "menu_margin_bottom", "label": "Margin bottom", "min": 0, "max": 60, "step": 1, "unit": "px", "default": 0 },
+    { "type": "color", "id": "menu_background_color", "label": "Menu background color" },
+    { "type": "range", "id": "menu_border_radius", "label": "Menu border radius", "min": 0, "max": 999, "step": 1, "unit": "px", "default": 999 },
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "background_color", "label": "Background color" },
     { "type": "color", "id": "heading_color", "label": "Brand color" },
@@ -49,6 +63,7 @@
     { "type": "header", "content": "Typography" },
     { "type": "range", "id": "heading_font_size", "label": "Brand size", "min": 0, "max": 120, "step": 2, "unit": "px", "default": 0 },
     { "type": "select", "id": "heading_font_weight", "label": "Brand weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+    { "type": "select", "id": "menu_font_weight", "label": "Menu weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
     { "type": "range", "id": "body_font_size", "label": "Menu text size", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 }
   ]
 }
