@@ -1,0 +1,113 @@
+{{ 'section-pet-category-products.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'section-pet-category-products.js' | asset_url }}" defer="defer"></script>
+
+<pet-product-slider class="pet-section pet-cat-products-section" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}{% render 'style-controls', section: section %}" data-autoplay="{{ section.settings.autoplay }}" data-interval="{{ section.settings.autoplay_speed | times: 1000 }}" aria-roledescription="carousel">
+  <div class="pet-container">
+    {% for block in section.blocks %}
+      {% if block.type == 'intro' %}
+        <div class="pet-section__intro" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
+          {% if block.settings.eyebrow != blank %}<p class="pet-eyebrow">{{ block.settings.eyebrow }}</p>{% endif %}
+          {% if block.settings.heading != blank %}<h2 class="pet-heading">{{ block.settings.heading }}</h2>{% endif %}
+          {% if block.settings.copy != blank %}<p class="pet-copy">{{ block.settings.copy }}</p>{% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    {% assign products = false %}
+    {% if section.settings.show_all_store_products %}
+      {% assign products = collections.all.products %}
+    {% elsif section.settings.collection != blank %}
+      {% assign products = section.settings.collection.products %}
+    {% endif %}
+    {% if products.size > 0 %}
+      <div class="pet-product-slider">
+        <div class="pet-product-slider__track" data-track>
+          {% for product in products %}
+            {% if section.settings.show_all_products == false and forloop.index > section.settings.products_to_show %}
+              {% break %}
+            {% endif %}
+            <article class="pet-product pet-product-slider__slide">
+              <a href="{{ product.url }}" class="pet-product__image">
+                {% if product.featured_image %}
+                  {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+                {% else %}
+                  <span class="pet-product__image--empty" aria-hidden="true">🐾</span>
+                {% endif %}
+              </a>
+              <div class="pet-product__body">
+                <p class="pet-product__vendor">{{ product.vendor }}</p>
+                <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+                {% if section.settings.show_rating %}<p class="pet-product__stars">★★★★★ <span>{{ product.metafields.reviews.rating.value | default: '4.8' }}</span></p>{% endif %}
+                {% if section.settings.show_price %}<strong>{{ product.price | money }}</strong>{% endif %}
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+
+        {% if products.size > 1 %}
+          <div class="pet-product-slider__controls" aria-label="Product slider controls">
+            <button class="pet-product-slider__arrow" type="button" data-previous aria-label="Previous products">←</button>
+            <button class="pet-product-slider__arrow" type="button" data-next aria-label="Next products">→</button>
+          </div>
+        {% endif %}
+      </div>
+    {% else %}
+      <p class="pet-copy pet-product-slider__empty">Choose a collection in the slider settings to start selling.</p>
+    {% endif %}
+  </div>
+</pet-product-slider>
+
+{% schema %}
+{
+  "name": "Pet category products",
+  "settings": [
+    { "type": "header", "content": "Show products" },
+    { "type": "checkbox", "id": "show_all_store_products", "label": "Show all products", "default": false, "info": "When enabled, every product in the store is shown, ignoring the selected collection." },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Fetch products from an admin collection." },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 4, "max": 12, "step": 1, "default": 8 },
+    { "type": "checkbox", "id": "show_all_products", "label": "Ignore product limit", "default": false, "info": "When enabled, every loaded product is shown, ignoring the limit above." },
+    { "type": "checkbox", "id": "show_price", "label": "Show price", "default": true },
+    { "type": "checkbox", "id": "show_rating", "label": "Show rating", "default": true },
+    { "type": "header", "content": "Slider" },
+    { "type": "checkbox", "id": "autoplay", "label": "Auto-scroll products", "default": true },
+    { "type": "range", "id": "autoplay_speed", "label": "Auto-scroll speed", "min": 3, "max": 10, "step": 1, "unit": "s", "default": 5 },
+    { "type": "header", "content": "Design controls" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 76 },
+    { "type": "range", "id": "margin_top", "label": "Margin top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "color", "id": "background_color", "label": "Background color" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "heading_color", "label": "Heading color" },
+    { "type": "color", "id": "text_color", "label": "Text color" },
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "heading_font_size", "label": "Heading size", "min": 0, "max": 120, "step": 2, "unit": "px", "default": 0 },
+    { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+    { "type": "range", "id": "body_font_size", "label": "Body text size", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "intro",
+      "name": "Intro",
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop by category" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Everyday favourites" },
+        { "type": "richtext", "id": "copy", "label": "Text", "default": "<p>Browse the products pets and people keep coming back to.</p>" },
+        { "type": "header", "content": "Design controls" },
+        { "type": "color", "id": "heading_color", "label": "Heading color" },
+        { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
+        { "type": "color", "id": "text_color", "label": "Text color" },
+        { "type": "color", "id": "background_color", "label": "Background color" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pet category products",
+      "blocks": [
+        { "type": "intro" }
+      ]
+    }
+  ]
+}
+{% endschema %}

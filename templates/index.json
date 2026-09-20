@@ -99,6 +99,23 @@
       ],
       "settings": {}
     },
+    "category_products": {
+      "type": "pet-category-products",
+      "blocks": {
+        "intro": {
+          "type": "intro"
+        }
+      },
+      "block_order": [
+        "intro"
+      ],
+      "settings": {
+        "collection": "indestructible-dog-toys",
+        "products_to_show": 8,
+        "autoplay": true,
+        "autoplay_speed": 5
+      }
+    },
     "featured": {
       "type": "pet-featured-products",
       "blocks": {
@@ -240,6 +257,7 @@
     "hero",
     "benefits",
     "categories",
+    "category_products",
     "featured",
     "smart_feeder",
     "reviews",

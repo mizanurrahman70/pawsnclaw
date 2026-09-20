@@ -23,6 +23,56 @@
       {% endif %}
     {% endfor %}
 
+    {% assign has_faces = false %}
+    {% for block in section.blocks %}
+      {% if block.type == 'collection_face' and block.settings.collection != blank %}
+        {% assign has_faces = true %}
+      {% endif %}
+    {% endfor %}
+
+    {% if has_faces %}
+      {% for block in section.blocks %}
+        {% if block.type == 'collection_face' and block.settings.collection != blank %}
+          {% assign face_collection = block.settings.collection %}
+          <div class="pet-collection__face-group" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
+            <div class="pet-collection__face-head">
+              <div>
+                <h3><a href="{{ face_collection.url }}">{{ face_collection.title }}</a></h3>
+                {% if block.settings.show_description and face_collection.description != blank %}
+                  <p class="pet-collection__face-desc">{{ face_collection.description }}</p>
+                {% endif %}
+              </div>
+              {% if block.settings.show_view_all %}
+                <a class="pet-button pet-button--outline" href="{{ face_collection.url }}">View all →</a>
+              {% endif %}
+            </div>
+            <div class="pet-collection__faces">
+              {% for face_product in face_collection.products %}
+                {% if block.settings.show_all_products == false and forloop.index > block.settings.products_to_show %}
+                  {% break %}
+                {% endif %}
+                <article class="pet-product">
+                  <a href="{{ face_product.url }}" class="pet-product__image">
+                    {% if face_product.featured_image %}
+                      {{ face_product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: face_product.title }}
+                    {% else %}
+                      <span class="pet-product__image--empty" aria-hidden="true">✦</span>
+                    {% endif %}
+                  </a>
+                  <div class="pet-product__body">
+                    <p class="pet-product__vendor">{{ face_product.vendor }}</p>
+                    <h3><a href="{{ face_product.url }}">{{ face_product.title }}</a></h3>
+                    <p class="pet-product__stars">★★★★★ <span>{{ face_product.metafields.reviews.rating.value | default: '4.8' }}</span></p>
+                    {% if block.settings.show_price %}<strong>{{ face_product.price | money }}</strong>{% endif %}
+                  </div>
+                </article>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
     <div class="pet-collection__toolbar">
       <p class="pet-collection__count">{{ collection.products_count }} products</p>
       {% if section.settings.show_sort_by %}
@@ -103,6 +153,21 @@
         { "type": "color", "id": "heading_color", "label": "Heading color" },
         { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
         { "type": "color", "id": "text_color", "label": "Text color" },
+        { "type": "color", "id": "background_color", "label": "Background color" }
+      ]
+    },
+    {
+      "type": "collection_face",
+      "name": "Collection face",
+      "limit": 12,
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection", "info": "Fetch products from an admin collection." },
+        { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 4, "max": 12, "step": 1, "unit": "px", "default": 4 },
+        { "type": "checkbox", "id": "show_all_products", "label": "Show all products", "default": false, "info": "Display every product fetched from the collection instead of the limit above." },
+        { "type": "checkbox", "id": "show_description", "label": "Show collection description", "default": true },
+        { "type": "checkbox", "id": "show_view_all", "label": "Show view all button", "default": true },
+        { "type": "checkbox", "id": "show_price", "label": "Show price", "default": true },
+        { "type": "header", "content": "Design controls" },
         { "type": "color", "id": "background_color", "label": "Background color" }
       ]
     }

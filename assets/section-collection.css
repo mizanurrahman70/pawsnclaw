@@ -65,6 +65,63 @@
   max-width: 1180px;
 }
 
+.pet-collection__faces {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 auto 26px;
+  max-width: 1180px;
+}
+
+.pet-collection__face-group {
+  border-top: 1px solid #dfeaf2;
+  margin: 0 auto 28px;
+  max-width: 1180px;
+  padding-top: 24px;
+}
+
+.pet-collection__face-group .pet-collection__faces {
+  margin: 0;
+}
+
+.pet-collection__face-head {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.pet-collection__face-head h3 {
+  color: var(--pet-heading-color, var(--color-foreground));
+  font-size: 22px;
+  font-weight: var(--pet-heading-weight, 800);
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.pet-collection__face-head h3 a {
+  text-decoration: none;
+}
+
+.pet-collection__face-head h3 a:hover {
+  color: var(--color-primary);
+}
+
+.pet-collection__face-head .pet-button {
+  min-height: 38px;
+  padding: 0 18px;
+}
+
+.pet-collection__face-desc {
+  color: var(--pet-text-color, #748197);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 4px 0 0;
+  max-width: 640px;
+}
+
 .pet-collection__empty {
   grid-column: 1 / -1;
   padding: 40px 0;
@@ -197,13 +254,15 @@
 }
 
 @media (max-width: 900px) {
-  .pet-collection__grid {
+  .pet-collection__grid,
+  .pet-collection__faces {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 700px) {
-  .pet-collection__grid {
+  .pet-collection__grid,
+  .pet-collection__faces {
     grid-template-columns: repeat(2, 1fr);
   }
 

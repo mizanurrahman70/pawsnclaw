@@ -16,10 +16,19 @@
         "intro": {
           "type": "intro",
           "settings": {}
+        },
+        "faces": {
+          "type": "collection_face",
+          "settings": {
+            "collection": "indestructible-dog-toys",
+            "show_all_products": true,
+            "show_price": true
+          }
         }
       },
       "block_order": [
-        "intro"
+        "intro",
+        "faces"
       ]
     }
   },
