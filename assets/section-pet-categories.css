@@ -59,7 +59,10 @@
   font-size: 38px;
 }
 
-.pet-category > div:last-child {
+.pet-category__footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
   padding: 15px 16px 17px;
 }
 
@@ -74,6 +77,17 @@
   color: var(--pet-text-color, #748197);
   font-size: var(--pet-text-size, 12px);
   margin: 4px 0 0;
+}
+
+.pet-category__icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.pet-category:hover .pet-category__icon {
+  transform: translateX(3px);
 }
 
 @media (max-width: 800px) {

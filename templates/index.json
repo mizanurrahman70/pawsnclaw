@@ -16,7 +16,12 @@
           "type": "image"
         },
         "checks": {
-          "type": "checks"
+          "type": "checks",
+          "settings": {
+            "items": "Fast Shipping\nAuto-Delivery Save 15%\nVeterinary Approved",
+            "gap": 28,
+            "icon_color": "#00A650"
+          }
         }
       },
       "block_order": [

@@ -31,7 +31,7 @@
               assign category_url = '/collections/' | append: category_handle
             endif
           %}
-          <a class="pet-category" href="{{ category_url }}" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
+          <a class="pet-category" href="{{ category_url }}" style="{% render 'block-style-controls', block: block %}{% assign icon_color = block.settings.icon_color | default: section.settings.icon_color | default: '#0276E0' %}" {{ block.shopify_attributes }}>
             {% if block.settings.image != blank %}
               {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: block.settings.title }}
             {% else %}
@@ -43,13 +43,21 @@
                 {% else %}<div class="pet-category__empty">🐾</div>
               {% endcase %}
             {% endif %}
-            <div>
-              <h3>{{ block.settings.title }}</h3>
-              {% if category_collection != blank %}
-                <p>{{ category_collection.products_count }} products</p>
-              {% elsif block.settings.subtitle != blank %}
-                <p>{{ block.settings.subtitle }}</p>
-              {% endif %}
+            <div class="pet-category__footer">
+              <div>
+                <h3>{{ block.settings.title }}</h3>
+                {% if category_collection != blank %}
+                  <p>{{ category_collection.products_count }} products</p>
+                {% elsif block.settings.subtitle != blank %}
+                  <p>{{ block.settings.subtitle }}</p>
+                {% endif %}
+              </div>
+              <span class="pet-category__icon" style="color:{{ icon_color }};">
+                <svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="18" cy="18" r="18" fill="currentColor" fill-opacity="0.1"/>
+                  <path d="M15 12l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </div>
           </a>
         {% endif %}
@@ -71,6 +79,7 @@
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "heading_color", "label": "Heading color" },
     { "type": "color", "id": "text_color", "label": "Text color" },
+    { "type": "color", "id": "icon_color", "label": "Arrow icon color", "default": "#0276E0" },
     { "type": "header", "content": "Typography" },
     { "type": "range", "id": "heading_font_size", "label": "Heading size", "min": 0, "max": 120, "step": 2, "unit": "px", "default": 0 },
     { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
@@ -103,6 +112,7 @@
         { "type": "color", "id": "heading_color", "label": "Heading color" },
         { "type": "select", "id": "heading_font_weight", "label": "Heading weight", "default": "inherit", "options": [ { "value": "inherit", "label": "Default" }, { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "700", "label": "Bold" }, { "value": "800", "label": "Extra bold" }, { "value": "900", "label": "Black" } ] },
         { "type": "color", "id": "text_color", "label": "Text color" },
+        { "type": "color", "id": "icon_color", "label": "Arrow icon color", "info": "Overrides section-level arrow color" },
         { "type": "color", "id": "background_color", "label": "Background color" }
       ]
     }
