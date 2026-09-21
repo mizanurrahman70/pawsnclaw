@@ -11,12 +11,51 @@
   "type": "header",
   "name": "t:general.header",
   "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "message": {
+          "type": "message",
+          "settings": {
+            "icon": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v7a2 2 0 0 0 2 2h1v1a2 2 0 0 0 4 0v-1h2v1a2 2 0 0 0 4 0v-1h1a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm-1 12a1 1 0 0 1-2 0v-2h2v2zm8 0a1 1 0 0 1-2 0v-2h2v2zm1-4H6V9h12v5z\"/></svg>",
+            "text": "Free shipping on orders over $49!"
+          }
+        },
+        "link_1": {
+          "type": "link",
+          "settings": {
+            "text": "Call us: 1-800-PAWS-LOVE",
+            "link": ""
+          }
+        },
+        "link_2": {
+          "type": "link",
+          "settings": {
+            "text": "Track Order",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "message",
+        "link_1",
+        "link_2"
+      ],
+      "settings": {
+        "padding_top": 10,
+        "padding_bottom": 10,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "background_color": "#087BE8"
+      }
+    },
     "header": {
       "type": "header",
       "settings": {}
     }
   },
   "order": [
+    "announcement-bar",
     "header"
-  ],
+  ]
 }

@@ -1,0 +1,67 @@
+.announcement-bar {
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.announcement-bar__inner {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  min-height: 40px;
+}
+
+.announcement-bar__left,
+.announcement-bar__right {
+  display: flex;
+  align-items: center;
+}
+
+.announcement-bar__left {
+  gap: 15px;
+}
+
+.announcement-bar__right {
+  gap: 20px;
+}
+
+.announcement-bar__message {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.announcement-bar__icon {
+  display: flex;
+  align-items: center;
+}
+
+.announcement-bar__icon svg {
+  height: 16px;
+  width: 16px;
+}
+
+.announcement-bar__link a,
+.announcement-bar__link span {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.announcement-bar__link a:hover {
+  opacity: 0.8;
+}
+
+.announcement-bar__right .announcement-bar__link + .announcement-bar__link {
+  border-left: 1px solid rgba(255,255,255,0.3);
+  padding-left: 20px;
+}
+
+@media (max-width: 700px) {
+  .announcement-bar__inner {
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 0;
+  }
+}
