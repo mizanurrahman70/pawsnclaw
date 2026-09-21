@@ -10,8 +10,8 @@
   gap: 30px;
   height: 88px;
   margin: 0 auto;
-  padding: 0 28px;
-  width: min(1280px, 100%);
+  padding: 0 ;
+  width: min(1440px, 100%);
 }
 
 .site-header__brand {
