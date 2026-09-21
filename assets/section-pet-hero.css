@@ -41,7 +41,7 @@
 }
 
 .pet-hero__copy h1 em {
-  color: var(--color-primary);
+  color: var(--pet-highlight-color, var(--pet-accent-color, #0276E0));
   font-style: normal;
 }
 
