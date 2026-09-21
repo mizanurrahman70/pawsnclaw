@@ -98,8 +98,8 @@
   margin: 8px 0 10px;
 }
 
-.pet-product__stars-icons {
-  color: #F59E0B;
+.pet-product .pet-product__stars-icons {
+  color: #FFCC00;
   font-size: 11px;
   letter-spacing: 1px;
 }
