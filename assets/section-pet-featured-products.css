@@ -8,23 +8,33 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
+/* ── Card ── */
 .pet-product {
   background: white;
   border: 1px solid #dfeaf2;
   border-radius: var(--radius-card);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
+/* ── Image area ── */
 .pet-product__image {
   aspect-ratio: 0.95;
   display: block;
   overflow: hidden;
+  position: relative;
 }
 
 .pet-product__image img {
   height: 100%;
   object-fit: cover;
   width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.pet-product:hover .pet-product__image img {
+  transform: scale(1.04);
 }
 
 .pet-product__image--empty {
@@ -35,15 +45,34 @@
   justify-content: center;
 }
 
+/* ── Badge ── */
+.pet-product__badge {
+  background: var(--color-primary, #0276E0);
+  border-radius: 20px;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  left: 12px;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 12px;
+}
+
+/* ── Body ── */
 .pet-product__body {
-  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 14px 15px 15px;
 }
 
 .pet-product__vendor {
   color: var(--pet-text-color, #748197);
-  font-size: var(--pet-text-size, 10px);
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   margin: 0 0 5px;
   text-transform: uppercase;
 }
@@ -52,27 +81,85 @@
   color: var(--pet-heading-color, var(--color-foreground));
   font-size: var(--pet-heading-size, 14px);
   font-weight: var(--pet-heading-weight, 700);
-  line-height: 1.25;
+  line-height: 1.3;
   margin: 0;
 }
 
 .pet-product h3 a {
+  color: inherit;
   text-decoration: none;
 }
 
+/* ── Stars ── */
 .pet-product__stars {
-  color: #f5ae20;
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  margin: 8px 0 10px;
+}
+
+.pet-product__stars-icons {
+  color: #F59E0B;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.pet-product__rating {
+  color: #2d3748;
   font-size: 12px;
-  margin: 9px 0;
+  font-weight: 700;
 }
 
-.pet-product__stars span {
-  color: #738096;
+.pet-product__review-count {
+  color: #9aa5b4;
+  font-size: 11px;
 }
 
-.pet-product strong {
-  color: var(--color-primary);
-  font-size: 17px;
+/* ── Footer: price + cart btn ── */
+.pet-product__footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.pet-product__prices {
+  align-items: baseline;
+  display: flex;
+  gap: 6px;
+}
+
+.pet-product__prices strong {
+  color: var(--color-foreground);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.pet-product__prices s {
+  color: #9aa5b4;
+  font-size: 13px;
+  text-decoration: line-through;
+}
+
+/* ── Cart button ── */
+.pet-product__cart-btn {
+  align-items: center;
+  background: #eef5fb;
+  border: none;
+  border-radius: 8px;
+  color: var(--color-primary, #0276E0);
+  cursor: pointer;
+  display: flex;
+  height: 34px;
+  justify-content: center;
+  transition: background 0.2s, transform 0.15s;
+  width: 34px;
+}
+
+.pet-product__cart-btn:hover {
+  background: var(--color-primary, #0276E0);
+  color: white;
+  transform: scale(1.08);
 }
 
 .pet-featured__action {

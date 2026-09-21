@@ -15,25 +15,65 @@
     <div class="pet-products">
       {% if featured_collection != blank %}
         {% for product in featured_collection.products limit: 4 %}
+          {% assign badge = '' %}
+          {% if product.compare_at_price > product.price %}{% assign badge = 'Sale' %}{% endif %}
+          {% if product.tags contains 'best-seller' %}{% assign badge = 'Best Seller' %}{% endif %}
+          {% if product.tags contains 'top-rated' %}{% assign badge = 'Top Rated' %}{% endif %}
           <article class="pet-product">
-            <a href="{{ product.url }}" class="pet-product__image">{{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}</a>
+            <a href="{{ product.url }}" class="pet-product__image">
+              {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+              {% if badge != blank %}<span class="pet-product__badge">{{ badge }}</span>{% endif %}
+            </a>
             <div class="pet-product__body">
               <p class="pet-product__vendor">{{ product.vendor }}</p>
               <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
-              <p class="pet-product__stars">★★★★★ <span>{{ product.metafields.reviews.rating.value | default: '4.8' }}</span></p>
-              <strong>{{ product.price | money }}</strong>
+              {% assign rating = product.metafields.reviews.rating.value | default: 4.8 %}
+              {% assign review_count = product.metafields.reviews.rating_count.value | default: '' %}
+              <p class="pet-product__stars">
+                <span class="pet-product__stars-icons">★★★★★</span>
+                <span class="pet-product__rating">{{ rating }}</span>
+                {% if review_count != blank %}<span class="pet-product__review-count">({{ review_count }})</span>{% endif %}
+              </p>
+              <div class="pet-product__footer">
+                <div class="pet-product__prices">
+                  <strong>{{ product.price | money }}</strong>
+                  {% if product.compare_at_price > product.price %}
+                    <s>{{ product.compare_at_price | money }}</s>
+                  {% endif %}
+                </div>
+                <button class="pet-product__cart-btn" aria-label="Add to cart">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                </button>
+              </div>
             </div>
           </article>
         {% endfor %}
       {% else %}
-        {% for i in (1..4) %}
+        {% assign placeholder_data = 'WILD HARVEST,Active-Pup Organic Grain-Free Kibble,4.9,248,38.99,45.99,SAVE 15%|PUREHYDRATE,智能 Multi-Filter Silent Flow Fountain,4.8,182,29.99,,BEST SELLER|NEKODESIGN,Ergonomic Birch Wood Cat Scratcher Tower,4.7,94,65.00,78.00,|VETVITALITY,Glucosamine Joint-Support Soft Chews,5.0,310,19.99,,TOP RATED' | split: '|' %}
+        {% for item in placeholder_data %}
+          {% assign parts = item | split: ',' %}
           <article class="pet-product">
-            <div class="pet-product__image"><img src="{{ 'featured-pet.jpg' | asset_url }}" alt="Featured pet product" loading="lazy"></div>
+            <div class="pet-product__image pet-product__image--empty">
+              🐾
+              {% if parts[6] != blank %}<span class="pet-product__badge">{{ parts[6] }}</span>{% endif %}
+            </div>
             <div class="pet-product__body">
-              <p class="pet-product__vendor">Paws & Claw pick</p>
-              <h3>Favourite pet essential</h3>
-              <p class="pet-product__stars">★★★★★ <span>4.9</span></p>
-              <strong>$29.99</strong>
+              <p class="pet-product__vendor">{{ parts[0] }}</p>
+              <h3>{{ parts[1] }}</h3>
+              <p class="pet-product__stars">
+                <span class="pet-product__stars-icons">★★★★★</span>
+                <span class="pet-product__rating">{{ parts[2] }}</span>
+                <span class="pet-product__review-count">({{ parts[3] }})</span>
+              </p>
+              <div class="pet-product__footer">
+                <div class="pet-product__prices">
+                  <strong>${{ parts[4] }}</strong>
+                  {% if parts[5] != blank %}<s>${{ parts[5] }}</s>{% endif %}
+                </div>
+                <button class="pet-product__cart-btn" aria-label="Add to cart">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                </button>
+              </div>
             </div>
           </article>
         {% endfor %}
