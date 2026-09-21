@@ -20,7 +20,7 @@
   display: flex;
   flex: none;
   font-size: var(--pet-heading-size, 25px);
-  font-weight: var(--pet-heading-weight, 900);
+  font-weight: var(--pet-heading-weight, 700);
   letter-spacing: -0.075em;
   text-decoration: none;
 }
@@ -71,7 +71,7 @@
 .site-header__nav a {
   color: var(--pet-text-color, var(--color-foreground));
   font-size: var(--pet-text-size, 14px);
-  font-weight: var(--pet-menu-weight, 650);
+  font-weight: var(--pet-menu-weight, 600);
   text-decoration: none;
   white-space: nowrap;
 }

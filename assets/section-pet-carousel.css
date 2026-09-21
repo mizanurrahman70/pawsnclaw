@@ -73,7 +73,7 @@
 .pet-carousel__eyebrow {
   color: #f4d58d;
   font-size: .78rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: .13em;
   margin: 0 0 14px;
   text-transform: uppercase;
@@ -84,7 +84,7 @@
   font-family: var(--font-primary--family);
   font-size: clamp(2.45rem, 4.2vw, 4.65rem);
   font-style: var(--font-primary--style);
-  font-weight: var(--pet-heading-weight, 800);
+  font-weight: var(--pet-heading-weight, 700);
   letter-spacing: -.055em;
   line-height: .98;
   margin: 0;
@@ -107,7 +107,7 @@
   border-radius: 999px;
   color: var(--color-primary-dark);
   display: inline-flex;
-  font-weight: 800;
+  font-weight: 700;
   gap: 14px;
   margin-top: 28px;
   padding: 14px 20px 14px 24px;
