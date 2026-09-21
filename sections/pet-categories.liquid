@@ -36,10 +36,10 @@
               {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: block.settings.title }}
             {% else %}
               {% case block.settings.title %}
-                {% when 'Dog Food & Treats' %}<img src="{{ 'catagory-Dog-Food-Treats.jpg' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
-                {% when 'Indestructible Dog Toys' %}<img src="{{ 'catagory-Indestructible-Dog-Toys.jpg' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
-                {% when 'Premium Cat Food' %}<img src="{{ 'catagory-Premium-Cat-Food.jpg' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
-                {% when 'Interactive Cat Toys' %}<img src="{{ 'catagory-Interactive-Cat-Toys.jpg' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% when 'Dog Food & Treats' %}<img src="{{ 'catagory-cat-1.png' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% when 'Indestructible Dog Toys' %}<img src="{{ 'catagory-cat-2.png' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% when 'Premium Cat Food' %}<img src="{{ 'catagory-cat-3.png' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% when 'Interactive Cat Toys' %}<img src="{{ 'catagory-cat-4.png' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
                 {% else %}<div class="pet-category__empty">🐾</div>
               {% endcase %}
             {% endif %}

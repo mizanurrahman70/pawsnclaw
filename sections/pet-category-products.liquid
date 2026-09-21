@@ -3,22 +3,34 @@
 
 <pet-product-slider class="pet-section pet-cat-products-section" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}{% render 'style-controls', section: section %}" data-autoplay="{{ section.settings.autoplay }}" data-interval="{{ section.settings.autoplay_speed | times: 1000 }}" aria-roledescription="carousel">
   <div class="pet-container">
-    {% for block in section.blocks %}
-      {% if block.type == 'intro' %}
-        <div class="pet-section__intro" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
-          {% if block.settings.eyebrow != blank %}<p class="pet-eyebrow">{{ block.settings.eyebrow }}</p>{% endif %}
-          {% if block.settings.heading != blank %}<h2 class="pet-heading">{{ block.settings.heading }}</h2>{% endif %}
-          {% if block.settings.copy != blank %}<p class="pet-copy">{{ block.settings.copy }}</p>{% endif %}
-        </div>
-      {% endif %}
-    {% endfor %}
-
     {% assign products = false %}
     {% if section.settings.show_all_store_products %}
       {% assign products = collections.all.products %}
     {% elsif section.settings.collection != blank %}
       {% assign products = section.settings.collection.products %}
     {% endif %}
+
+    <div class="pet-product-slider__header">
+      <div class="pet-product-slider__intro">
+        {% for block in section.blocks %}
+          {% if block.type == 'intro' %}
+            <div class="pet-section__intro" style="{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
+              {% if block.settings.eyebrow != blank %}<p class="pet-eyebrow">{{ block.settings.eyebrow }}</p>{% endif %}
+              {% if block.settings.heading != blank %}<h2 class="pet-heading">{{ block.settings.heading }}</h2>{% endif %}
+              {% if block.settings.copy != blank %}<p class="pet-copy">{{ block.settings.copy }}</p>{% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% if products.size > 1 %}
+        <div class="pet-product-slider__controls" aria-label="Product slider controls">
+          <button class="pet-product-slider__arrow" type="button" data-previous aria-label="Previous products">←</button>
+          <button class="pet-product-slider__arrow" type="button" data-next aria-label="Next products">→</button>
+        </div>
+      {% endif %}
+    </div>
+
     {% if products.size > 0 %}
       <div class="pet-product-slider">
         <div class="pet-product-slider__track" data-track>
@@ -43,13 +55,6 @@
             </article>
           {% endfor %}
         </div>
-
-        {% if products.size > 1 %}
-          <div class="pet-product-slider__controls" aria-label="Product slider controls">
-            <button class="pet-product-slider__arrow" type="button" data-previous aria-label="Previous products">←</button>
-            <button class="pet-product-slider__arrow" type="button" data-next aria-label="Next products">→</button>
-          </div>
-        {% endif %}
       </div>
     {% else %}
       <p class="pet-copy pet-product-slider__empty">Choose a collection in the slider settings to start selling.</p>
