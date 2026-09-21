@@ -11,6 +11,20 @@
   "sections": {
     "main": {
       "type": "cart",
+      "blocks": {
+        "intro": {
+          "type": "intro",
+          "settings": {}
+        },
+        "empty_state": {
+          "type": "empty_state",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "intro",
+        "empty_state"
+      ],
       "settings": {}
     }
   },
