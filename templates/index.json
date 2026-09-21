@@ -132,6 +132,76 @@
       ],
       "settings": {}
     },
+    "brand_story": {
+      "type": "pet-image-text",
+      "blocks": {
+        "story_image": {
+          "type": "image",
+          "settings": {}
+        },
+        "story_content": {
+          "type": "content",
+          "settings": {
+            "eyebrow": "Our promise",
+            "heading": "Pet-first, always.",
+            "text": "<p>From nutrition to toys, everything in our store follows one rule — if we wouldn't give it to our own pets, we don't sell it.</p>",
+            "primary_label": "Shop all collections",
+            "primary_link": "/collections/all",
+            "secondary_label": "Read our story",
+            "secondary_link": "/pages/about"
+          }
+        }
+      },
+      "block_order": [
+        "story_image",
+        "story_content"
+      ],
+      "settings": {
+        "layout": "text_first"
+      }
+    },
+    "why_us": {
+      "type": "pet-multicolumn",
+      "blocks": {
+        "intro": {
+          "type": "intro",
+          "settings": {
+            "heading": "Why families trust Paws & Claw"
+          }
+        },
+        "quality": {
+          "type": "column",
+          "settings": {
+            "icon": "✓",
+            "heading": "Quality first",
+            "text": "Every product is vetted by our team before it reaches your door."
+          }
+        },
+        "delivery": {
+          "type": "column",
+          "settings": {
+            "icon": "↦",
+            "heading": "Fast delivery",
+            "text": "Orders ship within 24 hours so your pet never waits long."
+          }
+        },
+        "happy": {
+          "type": "column",
+          "settings": {
+            "icon": "✧",
+            "heading": "Happy pets",
+            "text": "Backed by real reviews from pets and parents alike."
+          }
+        }
+      },
+      "block_order": [
+        "intro",
+        "quality",
+        "delivery",
+        "happy"
+      ],
+      "settings": {}
+    },
     "smart_feeder": {
       "type": "pet-smart-feeder",
       "blocks": {
@@ -201,6 +271,51 @@
       ],
       "settings": {}
     },
+    "gallery": {
+      "type": "pet-gallery",
+      "blocks": {
+        "intro": {
+          "type": "intro",
+          "settings": {
+            "heading": "Life with Paws & Claw"
+          }
+        },
+        "gallery_one": {
+          "type": "image",
+          "settings": {}
+        },
+        "gallery_two": {
+          "type": "image",
+          "settings": {}
+        },
+        "gallery_three": {
+          "type": "image",
+          "settings": {}
+        },
+        "gallery_four": {
+          "type": "image",
+          "settings": {}
+        },
+        "gallery_five": {
+          "type": "image",
+          "settings": {}
+        },
+        "gallery_six": {
+          "type": "image",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "intro",
+        "gallery_one",
+        "gallery_two",
+        "gallery_three",
+        "gallery_four",
+        "gallery_five",
+        "gallery_six"
+      ],
+      "settings": {}
+    },
     "journal": {
       "type": "pet-journal",
       "blocks": {
@@ -259,8 +374,11 @@
     "categories",
     "category_products",
     "featured",
+    "brand_story",
+    "why_us",
     "smart_feeder",
     "reviews",
+    "gallery",
     "journal",
     "newsletter"
   ]

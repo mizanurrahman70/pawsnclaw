@@ -1,6 +1,7 @@
 class PetProductSlider extends HTMLElement {
   connectedCallback() {
     this.track = this.querySelector('[data-track]');
+    this.track.scrollLeft = 0;
     this.cards = Array.from(this.track.children);
 
     this.querySelector('[data-previous]')?.addEventListener('click', () => this.scrollBySlide(-1));
