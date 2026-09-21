@@ -10,7 +10,25 @@
 {
   "type": "footer",
   "name": "t:general.footer",
-  "sections": {
+"sections": {
+    "newsletter": {
+      "type": "pet-newsletter",
+      "blocks": {
+        "intro": {
+          "type": "intro",
+          "settings": {}
+        },
+        "form": {
+          "type": "signup_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "intro",
+        "form"
+      ],
+      "settings": {}
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -24,6 +42,7 @@
     }
   },
   "order": [
+    "newsletter",
     "footer"
   ]
 }
