@@ -1,0 +1,252 @@
+.pet-facets {
+  position: relative;
+}
+
+.pet-facets__note {
+  font-size: 13px;
+  margin: 6px 0 0;
+}
+
+.pet-facets__form {
+  margin: 0;
+}
+
+.pet-facets__sort {
+  margin-bottom: 14px;
+}
+
+.pet-facets__sort-select {
+  background: white;
+  border: 1px solid #dfeaf2;
+  border-radius: var(--radius-pill);
+  color: var(--pet-text-color, #748197);
+  font-family: var(--font-primary--family);
+  font-size: 14px;
+  padding: 9px 14px;
+  width: 100%;
+}
+
+.pet-facets__apply {
+  margin-top: 14px;
+  width: 100%;
+}
+
+.pet-facets__head {
+  margin-bottom: 8px;
+}
+
+.pet-facets__active {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pet-facets__pill {
+  align-items: center;
+  background: var(--color-mist);
+  border: 1px solid #cfe2f5;
+  border-radius: var(--radius-pill);
+  color: var(--color-primary-dark);
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 6px;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+
+.pet-facets__pill:hover {
+  background: #e8f1f7;
+}
+
+.pet-facets__pill span {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.pet-facets__clear-all {
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.pet-facets__group {
+  border-bottom: 1px solid #dfeaf2;
+}
+
+.pet-facets__group:first-of-type {
+  border-top: 1px solid #dfeaf2;
+}
+
+.pet-facets__summary {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font-size: 13px;
+  font-weight: 700;
+  justify-content: space-between;
+  letter-spacing: .02em;
+  list-style: none;
+  padding: 14px 0;
+}
+
+.pet-facets__summary::-webkit-details-marker {
+  display: none;
+}
+
+.pet-facets__summary:hover {
+  color: var(--color-primary);
+}
+
+.pet-facets__caret {
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  height: 7px;
+  transform: rotate(45deg);
+  transition: transform 180ms ease;
+  width: 7px;
+}
+
+.pet-facets__group.is-open > .pet-facets__summary .pet-facets__caret {
+  transform: rotate(225deg);
+}
+
+.pet-facets__selected {
+  color: var(--color-primary);
+  font-weight: 800;
+}
+
+.pet-facets__panel {
+  padding-bottom: 14px;
+}
+
+.pet-facets__fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.pet-facets__list {
+  list-style: none;
+  margin: 0;
+  max-height: 260px;
+  overflow: auto;
+  padding: 0;
+}
+
+.pet-facets__item {
+  margin: 0 0 2px;
+}
+
+.pet-facets__label {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font-size: 13px;
+  gap: 10px;
+  padding: 5px 0;
+}
+
+.pet-facets__label:hover {
+  color: var(--color-primary);
+}
+
+.pet-facets__label.is-disabled {
+  color: #a7b3be;
+  cursor: not-allowed;
+  opacity: .6;
+}
+
+.pet-facets__label input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pet-facets__box {
+  border: 1px solid #cfe2f5;
+  border-radius: 5px;
+  flex: 0 0 16px;
+  height: 16px;
+  position: relative;
+  transition: background 180ms ease, border-color 180ms ease;
+  width: 16px;
+}
+
+.pet-facets__label.is-active .pet-facets__box {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.pet-facets__label.is-active .pet-facets__box::after {
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  content: '';
+  height: 8px;
+  left: 5px;
+  position: absolute;
+  top: 2px;
+  transform: rotate(45deg);
+  width: 4px;
+}
+
+.pet-facets__label.is-disabled .pet-facets__box {
+  background: #eef2f5;
+}
+
+.pet-facets__value {
+  flex: 1;
+}
+
+.pet-facets__count {
+  color: #8aa0ac;
+  font-size: 12px;
+}
+
+.pet-facets__price-inputs {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.pet-facets__price-field {
+  display: block;
+}
+
+.pet-facets__price-label {
+  color: var(--pet-text-color, #748197);
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.pet-facets__price-field input {
+  background: white;
+  border: 1px solid #cfe2f5;
+  border-radius: 10px;
+  color: var(--color-foreground);
+  font-size: 13px;
+  outline: 0;
+  padding: 9px 12px;
+  width: 100%;
+}
+
+.pet-facets__price-field input:focus {
+  border-color: var(--color-primary);
+}
+
+.pet-button--small {
+  margin-top: 12px;
+  min-height: 38px;
+  padding: 0 16px;
+}
+
+/* Horizontal facet layout sits above a results toolbar */
+.pet-facets-toolbar {
+  align-items: center;
+  display: flex;
+}

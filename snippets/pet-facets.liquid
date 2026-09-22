@@ -1,0 +1,156 @@
+{% comment %}
+  Renders Shopify native facets (filtering) for collection and search results.
+
+  Accepts:
+  - results: Collection or Search object
+  - facet_section_id: section id used for unique form/input ids
+  - block: the filters block (for style controls)
+  - enable_sort_by: render the sort select inside the form (default: false)
+  Usage:
+  {% render 'pet-facets', results: collection, facet_section_id: section.id, block: block, enable_sort_by: section.settings.show_sort_by %}
+{% endcomment %}
+
+{%- liquid
+  assign sort_by = results.sort_by | default: results.default_sort_by
+  assign total_active_values = 0
+
+  if results.url
+    assign results_url = results.url
+    assign form_action = results.url
+  else
+    assign results_terms = results.terms | escape
+    assign form_action = routes.search_url
+    assign results_url = routes.search_url | append: '?q=' | append: results_terms | append: '&options%5Bprefix%5D=last&type=product&sort_by=' | append: sort_by
+  endif
+-%}
+
+<pet-facets class="pet-facets" data-template="{{ template.name }}">
+  {%- if results.filters.size == 0 -%}
+    <p class="pet-copy pet-facets__note">No filters are available for these results.</p>
+  {%- else -%}
+  <form id="PetFacetFiltersForm-{{ facet_section_id }}" class="pet-facets__form" action="{{ form_action }}" method="get">
+    {%- if results.terms -%}
+      <input type="hidden" name="q" value="{{ results.terms | escape }}">
+      <input type="hidden" name="type" value="product">
+      <input type="hidden" name="options[prefix]" value="last">
+    {%- endif -%}
+
+    {%- if enable_sort_by and results.sort_options.size > 0 -%}
+      <div class="pet-facets__sort">
+        <label class="visually-hidden" for="PetFacetSortBy-{{ facet_section_id }}">Sort by</label>
+        <select id="PetFacetSortBy-{{ facet_section_id }}" class="pet-facets__sort-select" name="sort_by">
+          {%- for option in results.sort_options -%}
+            <option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+    {%- endif -%}
+
+    {%- if results.current_vendor or results.current_type -%}
+      <input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+    {%- endif -%}
+
+    <div class="pet-facets__head">
+      <div class="pet-facets__active">
+        {%- assign any_active = false -%}
+        {%- for filter in results.filters -%}
+          {%- if filter.active_values.size > 0 -%}
+            {%- assign any_active = true -%}
+          {%- endif -%}
+          {%- for value in filter.active_values -%}
+            <a href="{{ value.url_to_remove }}" class="pet-facets__pill" aria-label="Remove {{ filter.label | escape }}: {{ value.label | escape }}">
+              {{ filter.label | escape }}: {{ value.label | escape }} <span aria-hidden="true">✕</span>
+            </a>
+          {%- endfor -%}
+          {%- if filter.type == 'price_range' and filter.min_value.value != null or filter.max_value.value != null -%}
+            {%- assign any_active = true -%}
+            <a href="{{ filter.url_to_remove }}" class="pet-facets__pill" aria-label="Remove {{ filter.label | escape }}">
+              {%- assign price_min = filter.min_value.value | default: 0 -%}
+              {%- assign price_max = filter.max_value.value | default: filter.range_max -%}
+              {{ price_min | money }} – {{ price_max | money }} <span aria-hidden="true">✕</span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if any_active -%}
+          <a href="{{ results_url }}" class="pet-facets__clear-all">Clear all</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- for filter in results.filters -%}
+      {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
+      <details class="pet-facets__group{% if forloop.first %} is-open{% endif %}" data-index="{{ forloop.index }}" {% if forloop.first %}open{% endif %}>
+        <summary class="pet-facets__summary">
+          <span>
+            {{ filter.label | escape }}
+            {%- if filter.active_values.size > 0 -%}
+              <span class="pet-facets__selected">({{ filter.active_values.size }})</span>
+            {%- endif -%}
+          </span>
+          <span class="pet-facets__caret" aria-hidden="true"></span>
+        </summary>
+
+        <div class="pet-facets__panel">
+          {%- case filter.type -%}
+            {%- when 'boolean', 'list' -%}
+              <fieldset class="pet-facets__fieldset">
+                <legend class="visually-hidden">{{ filter.label | escape }}</legend>
+                {%- liquid
+                  assign sorted_values = filter.values
+                  if filter.operator == 'AND'
+                    assign active_filter_values = filter.values | where: 'active', true
+                    assign inactive_filter_values = filter.values | where: 'active', false
+                    assign sorted_values = active_filter_values | concat: inactive_filter_values
+                  endif
+                -%}
+                <ul class="pet-facets__list" role="list">
+                  {%- for value in sorted_values -%}
+                    {%- liquid
+                      assign input_id = 'PetFilter-' | append: facet_section_id | append: '-' | append: filter.param_name | escape | append: '-' | append: forloop.index
+                      assign is_disabled = false
+                      if value.count == 0 and value.active == false
+                        assign is_disabled = true
+                      endif
+                    -%}
+                    <li class="pet-facets__item">
+                      <label for="{{ input_id }}" class="pet-facets__label{% if value.active %} is-active{% endif %}{% if is_disabled %} is-disabled{% endif %}">
+                        <input
+                          type="checkbox"
+                          name="{{ value.param_name }}"
+                          value="{{ value.value }}"
+                          id="{{ input_id }}"
+                          {% if value.active %}checked{% endif %}
+                          {% if is_disabled %}disabled{% endif %}
+                        >
+                        <span class="pet-facets__box" aria-hidden="true"></span>
+                        <span class="pet-facets__value">{{ value.label | escape }}</span>
+                        <span class="pet-facets__count">({{ value.count }})</span>
+                      </label>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </fieldset>
+            {%- when 'price_range' -%}
+              <div class="pet-facets__price">
+                <div class="pet-facets__price-inputs">
+                  <label class="pet-facets__price-field">
+                    <span class="pet-facets__price-label">From</span>
+                    <input type="number" inputmode="numeric" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | default: '' }}" placeholder="0">
+                  </label>
+                  <label class="pet-facets__price-field">
+                    <span class="pet-facets__price-label">To</span>
+                    <input type="number" inputmode="numeric" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | default: '' }}" placeholder="{{ filter.range_max | ceil }}">
+                  </label>
+                </div>
+              </div>
+          {%- endcase -%}
+        </div>
+      </details>
+    {%- endfor -%}
+
+    <button type="submit" class="pet-button pet-button--small pet-facets__apply">
+      Apply filters
+    </button>
+  </form>
+  {%- endif -%}
+</pet-facets>

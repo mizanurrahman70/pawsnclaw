@@ -16,10 +16,15 @@
         "intro": {
           "type": "intro",
           "settings": {}
+        },
+        "filters": {
+          "type": "filters",
+          "settings": {}
         }
       },
       "block_order": [
-        "intro"
+        "intro",
+        "filters"
       ]
     }
   },

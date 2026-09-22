@@ -17,6 +17,10 @@
           "type": "intro",
           "settings": {}
         },
+        "filters": {
+          "type": "filters",
+          "settings": {}
+        },
         "faces": {
           "type": "collection_face",
           "settings": {

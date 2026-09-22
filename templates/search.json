@@ -11,7 +11,16 @@
   "sections": {
     "main": {
       "type": "search",
-      "settings": {}
+      "settings": {},
+      "blocks": {
+        "filters": {
+          "type": "filters",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "filters"
+      ]
     }
   },
   "order": [
