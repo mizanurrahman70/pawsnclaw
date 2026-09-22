@@ -1,0 +1,138 @@
+.pet-collections__grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.pet-collections__grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.pet-collections__grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pet-collections__grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.pet-collection-card {
+  background: white;
+  border: 1px solid #dfeaf2;
+  border-radius: var(--radius-card);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-decoration: none;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+
+.pet-collection-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 14px 30px rgba(20, 60, 90, 0.12);
+  transform: translateY(-4px);
+}
+
+.pet-collection-card__image {
+  aspect-ratio: 1 / 0.82;
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.pet-collection-card__image img {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+  width: 100%;
+}
+
+.pet-collection-card:hover .pet-collection-card__image img {
+  transform: scale(1.06);
+}
+
+.pet-collection-card__empty {
+  align-items: center;
+  background: #d8edf4;
+  display: flex;
+  font-size: 46px;
+  height: 100%;
+  justify-content: center;
+}
+
+.pet-collection-card__count {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: var(--radius-pill);
+  bottom: 12px;
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 700;
+  left: 12px;
+  letter-spacing: 0.02em;
+  padding: 5px 12px;
+  position: absolute;
+}
+
+.pet-collection-card__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 18px 20px 20px;
+}
+
+.pet-collection-card__content h3 {
+  color: var(--pet-heading-color, var(--color-foreground));
+  font-size: var(--pet-heading-size, 18px);
+  font-weight: var(--pet-heading-weight, 700);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.pet-collection-card__content p {
+  color: var(--pet-text-color, #748197);
+  font-size: var(--pet-text-size, 13.5px);
+  line-height: 1.55;
+  margin: 7px 0 14px;
+}
+
+.pet-collection-card__link {
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: auto;
+}
+
+.pet-collection-card__link-count {
+  background: #eef5fb;
+  border-radius: var(--radius-pill);
+  color: var(--color-primary);
+  display: inline-block;
+  font-size: 11px;
+  margin-left: 6px;
+  padding: 2px 8px;
+  vertical-align: middle;
+}
+
+@media (max-width: 1000px) {
+  .pet-collections__grid,
+  .pet-collections__grid--4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .pet-collections__grid,
+  .pet-collections__grid--3,
+  .pet-collections__grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .pet-collections__grid,
+  .pet-collections__grid--2,
+  .pet-collections__grid--3,
+  .pet-collections__grid--4 {
+    grid-template-columns: 1fr;
+  }
+}
