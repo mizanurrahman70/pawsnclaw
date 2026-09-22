@@ -119,17 +119,60 @@
 }
 
 .pet-product-detail__variant {
-  background: #f3f8fc;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #f3f8fc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230276E0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 18px center;
   border: 1px solid #cfe2f5;
   border-radius: var(--radius-pill);
   color: var(--color-foreground);
+  font-family: var(--font-primary--family);
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 14px;
   min-height: 46px;
   outline: 0;
   padding: 0 40px 0 18px;
+  text-overflow: ellipsis;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  white-space: nowrap;
   width: 100%;
+}
+
+.pet-product-detail__variant:hover {
+  border-color: var(--color-primary);
+}
+
+.pet-product-detail__variant:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(2, 118, 224, 0.15);
+}
+
+.pet-product-detail__variant:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.pet-product-detail__variant optgroup {
+  font-style: normal;
+}
+
+.pet-product-detail__variant option {
+  background: white;
+  color: var(--color-foreground);
+  font-family: var(--font-primary--family);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 10px;
+}
+
+.pet-product-detail__variant option:hover,
+.pet-product-detail__variant option:checked {
+  background: var(--color-primary);
+  color: white;
+}
+
+.pet-product-detail__variant option:disabled {
+  color: #9aa8bb;
 }
 
 .pet-product-detail__qty-row {
@@ -145,7 +188,8 @@
   border: 1px solid #cfe2f5;
   border-radius: var(--radius-pill);
   display: flex;
-  height: 48px;
+  flex: 0 0 118px;
+  height: 52px;
   justify-content: space-between;
   width: 118px;
 }
@@ -170,9 +214,10 @@
 
 .pet-product-detail__submit {
   cursor: pointer;
-  min-height: 52px;
-  padding: 0 34px;
-  width: 100%;
+  flex: 1;
+  height: 52px;
+  min-width: 0;
+  padding: 0 20px;
 }
 
 .pet-product-detail__pay {
