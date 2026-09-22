@@ -114,6 +114,39 @@
   padding-bottom: 22px;
 }
 
+.pet-product-detail__share {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.pet-product-detail__share > span {
+  color: #9aa8bb;
+  font-size: 13px;
+  font-weight: 600;
+  margin-right: 2px;
+}
+
+.pet-product-detail__share a {
+  align-items: center;
+  background: #f3f8fc;
+  border: 1px solid #dfeaf2;
+  border-radius: 50%;
+  color: var(--color-primary);
+  display: flex;
+  height: 34px;
+  justify-content: center;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.15s ease;
+  width: 34px;
+}
+
+.pet-product-detail__share a:hover {
+  background: var(--color-primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
 .pet-product-detail__form {
   margin-top: 24px;
 }

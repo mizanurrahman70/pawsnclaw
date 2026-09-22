@@ -65,6 +65,21 @@
 
         <div class="pet-product-detail__desc">{{ product.description }}</div>
 
+        {% if section.settings.show_share %}
+          <div class="pet-product-detail__share">
+            <span>{{ section.settings.share_label }}</span>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url | append: product.url | url_encode }}" target="_blank" rel="noopener" aria-label="Share on Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="https://twitter.com/intent/tweet?url={{ shop.url | append: product.url | url_encode }}&text={{ product.title | url_encode }}" target="_blank" rel="noopener" aria-label="Share on X">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93zm-1.29 19.49h2.04L6.49 3.24H4.3z"/></svg>
+            </a>
+            <a href="https://pinterest.com/pin/create/button/?url={{ shop.url | append: product.url | url_encode }}" target="_blank" rel="noopener" aria-label="Share on Pinterest">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path fill="#fff" d="M12 6.5a4 4 0 00-1.4 7.68c-.05-.35-.06-.62 0-.9.1-.45.6-2.02.6-2.02s-.16-.3-.16-.75c0-.71.41-1.24.92-1.24.44 0 .64.32.64.71 0 .44-.28 1.09-.42 1.69-.12.5.25.9.75.9.9 0 1.6-.95 1.6-2.33 0-1.22-.88-2.07-2.13-2.07a2.2 2.2 0 00-2.3 2.2c0 .44.17.9.38 1.15a.15.15 0 01.03.18l-.14.6a.1.1 0 01-.13.07c-.52-.21-.84-.88-.84-1.4 0-1.14.83-2.18 2.38-2.18 1.25 0 2.22.89 2.22 2.08 0 1.24-.78 2.24-1.87 2.24-.36 0-.71-.19-.82-.41l-.22.85c-.08.31-.3.7-.45.94-.34.36-.77.56.36.27.96-.34 1.55-1.23 1.55-2.22 0-1.43-1.03-2.75-2.7-2.75a2.9 2.9 0 00-3.03 2.9c0 .61.24 1.24.55 1.6l-.6 2.42c-.2.87-.05 1.94-.05 2.03a6 6 0 003.32-6.46c.37.2.84.34 1.28.34A4.4 4.4 0 0016.44 12 4.06 4.06 0 0012 6.5z"/></svg>
+            </a>
+          </div>
+        {% endif %}
+
         <form class="pet-product-detail__form" action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
           {% if product.variants.size > 1 %}
             <select class="pet-product-detail__variant" name="id">
@@ -161,6 +176,8 @@
   "settings": [
     { "type": "header", "content": "Buy box" },
     { "type": "checkbox", "id": "show_rating", "label": "Show rating", "default": true },
+    { "type": "checkbox", "id": "show_share", "label": "Show share buttons", "default": true },
+    { "type": "text", "id": "share_label", "label": "Share label", "default": "Share:" },
     { "type": "checkbox", "id": "show_badges", "label": "Show trust badges", "default": true },
     { "type": "checkbox", "id": "show_payment_button", "label": "Show dynamic checkout button", "default": true },
     { "type": "header", "content": "Design controls" },
