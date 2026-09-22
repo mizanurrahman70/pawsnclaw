@@ -36,9 +36,23 @@
         "trust-3",
         "accordion-1"
       ]
+    },
+    "related": {
+      "type": "pet-related-products",
+      "settings": {},
+      "blocks": {
+        "related-intro": {
+          "type": "intro",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "related-intro"
+      ]
     }
   },
   "order": [
-    "main"
+    "main",
+    "related"
   ]
 }

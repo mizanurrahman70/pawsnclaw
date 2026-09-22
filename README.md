@@ -1,62 +1,143 @@
-# Paws & Claw — Shopify Theme
+# Paws & Claw Theme
 
-A Shopify Online Store 2.0 theme for a friendly, vet-conscious pet shop. The homepage is built from merchant-editable sections and blocks inspired by the supplied storefront direction.
+A Shopify theme for **Paws & Claw**, a pet supplies store. Built on the Skeleton/Dawn
+architecture, where every section is composed of separable, reusable blocks that the
+merchant can add, remove, and reorder in the theme editor.
 
-## Start developing
+## Getting started
 
-Install the [Shopify CLI](https://shopify.dev/docs/api/shopify-cli), authenticate to your store, then run:
+1. Clone the repository and open it with the [Shopify CLI](https://shopify.dev/docs/shopify-cli).
+2. Connect it to your store:
 
-```bash
-shopify theme dev
+   ```bash
+   shopify theme dev
+   ```
+
+   or push it directly:
+
+   ```bash
+   shopify theme push
+   ```
+
+3. Open the theme editor (`/admin/themes` → *Customize*) to compose pages from blocks.
+
+## Theme structure
+
+```
+sections/*.liquid          One section per file; the {% schema %} lives in the same file
+blocks/*.liquid            Shared theme blocks (group, text)
+snippets/*.liquid          Reusable render snippets (facets, style controls, design tokens)
+templates/*.json           Page composition; block instances are registered here
+assets/section-<name>.css  Exactly one stylesheet per section, loaded at the top of the section
+assets/section-<name>.js   Section script (optional)
+layout/*.liquid            Theme layout(s)
+config/*.liquid / *.json   Theme settings (settings_schema, settings_data)
 ```
 
-Use `shopify theme check` before publishing and `shopify theme push` to upload a draft theme.
+This is predominantly a *section-first* theme: most of the homepage is built from
+`pet-*` sections (hero, benefits, categories, featured products, testimonials,
+journal, newsletter, and more).
 
-## Project conventions
+## Key files
 
-### Global design settings
-
-Open **Theme settings → Colors** in the Shopify editor to set the global palette. The default values are:
-
-| Token | Default |
+| File | Purpose |
 | --- | --- |
-| Primary blue | `#087BE8` |
-| Deep blue | `#0565C7` |
-| Soft blue background | `#EDF7FF` |
-| Card surface | `#FFFFFF` |
-| Ink | `#17233A` |
+| `sections/pet-hero.liquid` | Reference section: content / image / checks blocks |
+| `sections/pet-benefits.liquid` | Reference section: `benefit` blocks |
+| `sections/collection.liquid` | Collection page with product grid + faceted filters |
+| `sections/search.liquid` | Search results page with faceted filters |
+| `snippets/pet-facets.liquid` | Shopify native facets renderer (filters, sort, active pills) |
+| `snippets/pet-facets-pagination.liquid` | No-JS pagination links that preserve active filter params |
+| `assets/pet-facets.js` | Progressive enhancement: auto-submit filters on change |
+| `snippets/css-variables.liquid` | Design tokens exposed as CSS custom properties |
+| `snippets/style-controls.liquid` | Section design-control renderer (padding, margins, background) |
+| `snippets/block-style-controls.liquid` | Block design-control renderer (colors, background) |
 
-Use the variables defined by `snippets/css-variables.liquid` (`--color-primary`, `--color-mist`, etc.) instead of hard-coding brand colors in a section.
+## Design tokens
 
-### Section CSS lives in assets
+`assets/global.css` and `snippets/css-variables.liquid` expose design tokens as CSS
+custom properties. **Prefer these over hardcoded values:**
 
-Every section has its own CSS file in `assets/`, named `section-<section-name>.css`. Load it at the top of the matching Liquid file:
+```
+--color-*             Background, foreground, primary, surface, mist, success
+--radius-*            Pill / card corner radii
+--font-primary--*     Typeface family, weight, style
+--page-width          Max content width
+--page-margin         Outer gutter
+```
+
+## Building sections
+
+The pattern used across this theme is: **never hardcode section copy or layout markup.**
+Every section is composed of blocks.
+
+1. **Headings, eyebrow, copy and buttons** → editable `content` / `intro` blocks.
+2. **Repeatable cards** (benefits, categories, reviews, journal stories) → one block
+   type per card.
+3. **Only true data** (e.g. a `collection` picker that loads products) stays a section setting.
+4. Every section exposes a **Design controls** group on the `<section>` element:
+   `padding_top`, `padding_bottom`, `margin_top`, `margin_bottom` (ranges, px) and
+   `background_color`, rendered as an inline `style` attribute.
+5. Every block needs `name` + `settings`; every section needs a `presets` array.
+6. **Register every block instance in `templates/*.json`** with `"blocks"` and
+   `"block_order"`, or the section renders empty.
+
+See `sections/pet-hero.liquid` and `sections/pet-benefits.liquid` for reference
+implementations.
+
+### CSS in object notation
+
+When specifying styles here (or in issues), write CSS as a `{ property: 'value' }`
+object that flattens to real CSS rules. Example:
+
+```css
+.pet-button {
+  color: 'green';
+  background: 'var(--color-primary)';
+  border-radius: 'var(--radius-pill)';
+}
+```
+
+Equivalent object notation:
+
+```
+{ color: 'green', background: 'var(--color-primary)', border-radius: 'var(--radius-pill)' }
+```
+
+Keep exactly **one CSS asset per section** at `assets/section-<name>.css` and load it
+at the top of the section:
 
 ```liquid
-{{ 'section-pet-hero.css' | asset_url | stylesheet_tag }}
+{{ '<name>.css' | asset_url | stylesheet_tag }}
 ```
 
-Keep CSS rules in ordinary braces (`{ ... }`), scope them with the section component class, and avoid putting long section styles inside `{% stylesheet %}`. `assets/global.css` is only for shared tokens, buttons, layout helpers, and site-wide styles; `assets/critical.css` remains the reset and essential layout layer.
+## Filters & search (collection / search pages)
 
-### Build with blocks first
+Filtering uses **Shopify native facets** and works with JavaScript **disabled**:
 
-Sections must use Shopify blocks whenever content can be repeated, reordered, or merchant-controlled. For a new section:
+- `{% render 'pet-facets' %}` outputs a plain `<form method="get">`. Checking a
+  filter, picking a sort, and clicking **Apply filters** submits one GET request
+  carrying all `filter.*`, `sort_by`, and `q` params.
+- `snippets/pet-facets-pagination.liquid` builds pagination links in Liquid that
+  preserve the active filter + sort params.
+- `assets/pet-facets.js` is an optional enhancement only — with JS available,
+  filter/price changes auto-submit without pressing **Apply**.
 
-1. Create `sections/pet-<name>.liquid`.
-2. Create `assets/section-pet-<name>.css` and load it from that section.
-3. Add a block schema for each repeatable card/item, with meaningful default settings.
-4. Add a preset with the minimum useful blocks so the section works immediately after it is added in the editor.
-5. Add the section to the relevant JSON template only when it belongs in the default page experience.
+In the theme editor, the `filters` block on the **Collection** section exposes:
 
-The starter homepage includes a hero, editable benefits, category cards, featured products, testimonials, and journal cards. Product content comes from the collection selected in **Pet featured products**; it gracefully shows placeholders until a collection is selected.
+- **Show / off** toggles for collection info and filters.
+- **Filter position** — left sidebar or top bar (two-column group grid).
+- **Options layout** — vertical list or horizontal pill chips.
 
-## Structure
+## Verifying before shipping
 
-```
-assets/      Global and section-scoped CSS, icons, images
-blocks/      Reusable Shopify theme blocks
-config/      Theme editor settings and current values
-sections/    Merchant-editable page sections
-snippets/    Shared Liquid helpers and CSS variables
-templates/   JSON page composition
-```
+- `{% schema %}` blocks must be valid JSON.
+- `templates/*.json` must be valid JSON. Their auto-generated `/* */` header is a
+  comment — strip it for local validation:
+
+  ```bash
+  node -e "const fs=require('fs');for(const f of fs.readdirSync('templates').filter(x=>x.endsWith('.json'))){JSON.parse(fs.readFileSync('templates/'+f,'utf8').replace(/\/\*[\s\S]*?\*\//,''))}"
+  ```
+
+- The `{{ 'section-*.css' | asset_url | stylesheet_tag }}` tag must reference an
+  existing asset.
