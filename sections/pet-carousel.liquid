@@ -1,24 +1,24 @@
 {{ 'section-pet-carousel.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'section-pet-carousel.js' | asset_url }}" defer="defer"></script>
 
-<pet-carousel class="pet-carousel" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}{% render 'style-controls', section: section %}" data-autoplay="{{ section.settings.autoplay }}" data-interval="{{ section.settings.autoplay_speed | times: 1000 }}" aria-roledescription="carousel">
-  <div class="pet-container">
+<pet-carousel class="pet-carousel{% unless section.settings.full_width %} pet-carousel--contained{% endunless %}" style="padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px;margin-top:{{ section.settings.margin_top }}px;margin-bottom:{{ section.settings.margin_bottom }}px{% if section.settings.background_color != blank %};background-color:{{ section.settings.background_color }}{% endif %}{% render 'style-controls', section: section %}" data-autoplay="{{ section.settings.autoplay }}" data-interval="{{ section.settings.autoplay_speed | times: 1000 }}" aria-roledescription="carousel">
+  <div class="pet-carousel__stage">
     <div class="pet-carousel__frame" aria-live="polite">
       {% for block in section.blocks %}
-        <article class="pet-carousel__slide{% if forloop.first %} is-active{% endif %}" data-slide aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}" style="--pet-carousel-overlay:{{ block.settings.overlay_color }};{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
+        <article class="pet-carousel__slide pet-carousel__slide--{{ block.settings.content_layout }} pet-carousel__slide--v-{{ block.settings.v_align }}{% if block.settings.h_align != 'left' %} pet-carousel__slide--h-{{ block.settings.h_align }}{% endif %}{% if block.settings.content_width_mode == 'full' %} pet-carousel__slide--full-width{% endif %}{% if forloop.first %} is-active{% endif %}" data-slide aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}" style="--pet-carousel-overlay:{{ block.settings.overlay_color }};--pet-carousel-content-width:{{ block.settings.content_width }}px{% if block.settings.background_color != blank %};--pet-bg: {{ block.settings.background_color }}{% endif %};{% render 'block-style-controls', block: block %}" {{ block.shopify_attributes }}>
           <div class="pet-carousel__media">
             {% if block.settings.image != blank %}
-              {{ block.settings.image | image_url: width: 1800 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1800', sizes: '(min-width: 1180px) 1180px, calc(100vw - 40px)', alt: block.settings.image_alt }}
+              {{ block.settings.image | image_url: width: 2000 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600, 2000', sizes: '100vw', alt: block.settings.image_alt }}
             {% else %}
               {{ 'lifestyle-1' | placeholder_svg_tag: 'pet-carousel__placeholder' }}
             {% endif %}
           </div>
           <div class="pet-carousel__overlay"></div>
-          <div class="pet-carousel__content">
+          <div class="pet-carousel__content{% if block.settings.content_full_width %} pet-carousel__content--full{% endif %}">
             {% if block.settings.eyebrow != blank %}<p class="pet-carousel__eyebrow">{{ block.settings.eyebrow }}</p>{% endif %}
-            {% if block.settings.heading != blank %}<h2>{{ block.settings.heading }}</h2>{% endif %}
-            {% if block.settings.text != blank %}<div class="pet-carousel__text">{{ block.settings.text }}</div>{% endif %}
-            {% if block.settings.button_label != blank %}<a class="pet-carousel__button" href="{{ block.settings.button_link }}">{{ block.settings.button_label }} <span aria-hidden="true">→</span></a>{% endif %}
+            {% if block.settings.heading != blank %}<h2{% if block.settings.heading_full_width %} class="pet-carousel__heading--full"{% endif %}>{{ block.settings.heading }}</h2>{% endif %}
+            {% if block.settings.text != blank %}<div class="pet-carousel__text{% if block.settings.text_full_width %} pet-carousel__text--full{% endif %}">{{ block.settings.text }}</div>{% endif %}
+            {% if block.settings.button_label != blank %}<a class="pet-carousel__button{% if block.settings.button_full_width %} pet-carousel__button--full{% endif %}" href="{{ block.settings.button_link }}">{{ block.settings.button_label }} <span aria-hidden="true">→</span></a>{% endif %}
           </div>
         </article>
       {% else %}
@@ -47,6 +47,7 @@
   "class": "pet-carousel-section",
   "settings": [
     { "type": "header", "content": "Carousel" },
+    { "type": "checkbox", "id": "full_width", "label": "Full width slides", "default": true },
     { "type": "checkbox", "id": "autoplay", "label": "Auto-rotate slides", "default": false },
     { "type": "range", "id": "autoplay_speed", "label": "Auto-rotate speed", "min": 3, "max": 10, "step": 1, "unit": "s", "default": 5 },
     { "type": "header", "content": "Design controls" },
@@ -68,6 +69,16 @@
         { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Thoughtful essentials for the pet who is always by your side.</p>" },
         { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the collection" },
         { "type": "url", "id": "button_link", "label": "Button link" },
+        { "type": "header", "content": "Content layout" },
+        { "type": "select", "id": "content_layout", "label": "Content placement", "options": [ { "value": "overlay", "label": "Overlay on image" }, { "value": "below", "label": "Below image" } ], "default": "overlay" },
+        { "type": "select", "id": "h_align", "label": "Horizontal alignment", "options": [ { "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" } ], "default": "left" },
+        { "type": "select", "id": "v_align", "label": "Vertical position", "options": [ { "value": "top", "label": "Top" }, { "value": "center", "label": "Center" }, { "value": "bottom", "label": "Bottom" } ], "default": "center" },
+        { "type": "select", "id": "content_width_mode", "label": "Content width", "options": [ { "value": "custom", "label": "Custom width" }, { "value": "full", "label": "Full width" } ], "default": "custom" },
+        { "type": "range", "id": "content_width", "label": "Content max width", "min": 320, "max": 1600, "step": 20, "unit": "px", "default": 720 },
+        { "type": "checkbox", "id": "content_full_width", "label": "Stretch content full width", "default": false },
+        { "type": "checkbox", "id": "heading_full_width", "label": "Full width heading", "default": false },
+        { "type": "checkbox", "id": "text_full_width", "label": "Full width text", "default": false },
+        { "type": "checkbox", "id": "button_full_width", "label": "Full width button", "default": false },
         { "type": "header", "content": "Design controls" },
         { "type": "color", "id": "overlay_color", "label": "Image overlay", "default": "#10251c" },
         { "type": "color", "id": "heading_color", "label": "Heading color" },
