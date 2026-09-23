@@ -19,7 +19,7 @@
               {% if block.settings.profile != blank %}
                 {{ block.settings.profile | image_url: width: 200 | image_tag: loading: 'lazy', alt: block.settings.name }}
               {% else %}
-                <img src="{{ 'review-profile.jpg' | asset_url }}" alt="{{ block.settings.name }}" loading="lazy">
+                <img src="{{ 'review-profile.jpg' | asset_url }}" alt="{{ block.settings.name }}" width="447" height="447" loading="lazy">
               {% endif %}
               <div>
                 <strong>{{ block.settings.name }}</strong>

@@ -18,7 +18,7 @@
             {% if block.settings.image != blank %}
               {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block.settings.title }}
             {% else %}
-              <img src="{{ 'jurnal-pet.jpg' | asset_url }}" alt="{{ block.settings.title }}" loading="lazy">
+              <img src="{{ 'jurnal-pet.jpg' | asset_url }}" alt="{{ block.settings.title }}" width="713" height="429" loading="lazy">
             {% endif %}
             <div class="pet-story__body">
               <p>{{ block.settings.category }} · {{ block.settings.read_time }}</p>

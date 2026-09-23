@@ -7,7 +7,7 @@
       {% if media_blocks.size > 0 and media_blocks.first.settings.image != blank %}
         {{ media_blocks.first.settings.image | image_url: width: 1100 | image_tag: loading: 'lazy', widths: '500, 750, 1100', alt: media_blocks.first.settings.alt_text }}
       {% else %}
-        <img src="{{ 'promo-image-container.png' | asset_url }}" alt="Smart pet feeders on promotion" loading="lazy">
+        <img src="{{ 'promo-image-container.png' | asset_url }}" alt="Smart pet feeders on promotion" width="544" height="440" loading="lazy">
       {% endif %}
     </div>
 

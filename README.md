@@ -21,6 +21,30 @@ merchant can add, remove, and reorder in the theme editor.
 
 3. Open the theme editor (`/admin/themes` → *Customize*) to compose pages from blocks.
 
+## Docker
+
+The repository includes a `Dockerfile` (Node + Shopify CLI), a `docker-compose.yml`,
+and a `.dockerignore`. The image has two stages: `checker` runs the local validation
+(`shopify theme check`), and the final stage runs the theme dev server.
+
+```bash
+# Validate the theme (no store connection needed)
+docker build --target checker -t pawsnclaw-theme-check .
+
+# Run the dev server against your store
+docker compose up --build
+```
+
+Authentication uses a **Theme Access token** (non-interactive) or the CLI's interactive
+login flow. Set these environment variables in a `.env` file next to `docker-compose.yml`:
+
+```bash
+SHOPIFY_STORE=your-store.myshopify.com
+SHOPIFY_CLI_THEME_TOKEN=shpat_xxxx
+```
+
+Then open http://localhost:9292 and the theme editor / preview links printed by the CLI.
+
 ## Theme structure
 
 ```

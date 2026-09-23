@@ -1,0 +1,15 @@
+services:
+  theme-dev:
+    build: .
+    image: pawsnclaw-theme
+    command: shopify theme dev
+    ports:
+      - "9292:9292"
+    volumes:
+      - .:/theme
+    environment:
+      # Set these in a .env file or shell (see README "Docker")
+      SHOPIFY_FLAG_STORE: ${SHOPIFY_STORE:-}
+      SHOPIFY_CLI_THEME_TOKEN: ${SHOPIFY_CLI_THEME_TOKEN:-}
+      SHOPIFY_FLAG_HOST: 0.0.0.0
+      SHOPIFY_FLAG_PORT: 9292
